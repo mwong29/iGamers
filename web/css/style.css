@@ -1,0 +1,101 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 30, 2015, 5:24:51 PM
+    Author     : Maurice Wong
+*/
+
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 300%
+}
+
+.subtitle {
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+a:link, a:visited {
+    display: block;
+    width: 120px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #98bf21;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    background-color: #7A991A;
+}
+
+.shopping_cart {
+    width: 30px;
+    height: 25px;
+    padding-left: 5px;
+}
+
+.my_account_icon {
+    width: 40px;
+    height: 40px;
+    position:relative;
+    left:50px;
+}
+
+.my_shopping_cart {
+    width: 30px;
+    height: 25px;
+    position:relative;
+    left:525px;
+    top:-5px;
+}
+
+.my_account_title {
+    font-family: Arial, Helvetica, sans-serif;
+    position:relative;
+    top:-15px;
+    left:50px;
+}
+
+.my_cart {
+    font-family: Arial, Helvetica, sans-serif;
+    position:relative;
+    top:-10px;
+    left:535px;
+}
+
+.buy_now {
+    position:relative;
+    right:700px;
+}
+
+.available_now {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 200%;
+    color: red;
+    position:relative;
+    left:200px;
+    top:25px;
+}
+
+.front_game {
+    height: 200px;
+    width: auto;
+    position:relative;
+    top:25px;
+}
