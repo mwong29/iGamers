@@ -22,10 +22,10 @@
         
         
         <span class="my_account">
-            <a href="login.jsp"><img class="my_account_icon" src="resources/images/my_account_icon.png" alt="My Account"></a>
+            <a href="/iGamers/Home"><img class="my_account_icon" src="resources/images/my_account_icon.png" alt="My Account"></a>
         </span>
         <span class="my_account_title">
-            <a href="login.jsp">My Account</a>
+            <a href="/iGamers/Home">My Account</a>
         </span>
         
         <br>
@@ -39,11 +39,11 @@
         
         <br>
         <ul>
-            <li><a href="#home" class="nav-bar">Home</a></li>
-            <li><a href="#news" class="nav-bar">PS4</a></li>
-            <li><a href="#contact" class="nav-bar">Xbox One</a></li>
-            <li><a href="#contact" class="nav-bar">Wii U</a></li>
-            <li><a href="#contact" class="nav-bar">PC</a></li>
+            <li><a href="index.jsp" class="nav-bar">Home</a></li>
+            <li><a href="#ps4" class="nav-bar">PS4</a></li>
+            <li><a href="#xboxone" class="nav-bar">Xbox One</a></li>
+            <li><a href="#wiiu" class="nav-bar">Wii U</a></li>
+            <li><a href="#pc" class="nav-bar">PC</a></li>
             <li><a href="#about" class="nav-bar">About</a></li>
         </ul>
         <br>
