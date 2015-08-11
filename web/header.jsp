@@ -40,10 +40,10 @@
         <br>
         <ul>
             <li><a href="index.jsp" class="nav-bar">Home</a></li>
-            <li><a href="#ps4" class="nav-bar">PS4</a></li>
-            <li><a href="#xboxone" class="nav-bar">Xbox One</a></li>
-            <li><a href="#wiiu" class="nav-bar">Wii U</a></li>
-            <li><a href="#pc" class="nav-bar">PC</a></li>
+            <li><a href="browse.jsp?console=playstation4" class="nav-bar">PS4</a></li>
+            <li><a href="browse.jsp?console=xboxone" class="nav-bar">Xbox One</a></li>
+            <li><a href="browse.jsp?console=wiiu" class="nav-bar">Wii U</a></li>
+            <li><a href="browse.jsp?console=pc" class="nav-bar">PC</a></li>
             <li><a href="#about" class="nav-bar">About</a></li>
         </ul>
         <br>
