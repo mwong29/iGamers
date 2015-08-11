@@ -14,7 +14,12 @@ public class UserLogin implements Serializable {
     private String username;
     private String password;
     private Boolean isValidLogin = true;
+    private Boolean isValidCreate = true;
+    private Boolean isAccountCurrent = true;
     private String INVALID_LOGIN = "Invalid Username/Password";
+    private String USER_ALREADY_EXISTS = "User already exists. Please enter a new username.";
+    private String RESET_SUCCESSFUL = "Username and password has been reset!";
+
         
     public UserLogin() {
         username = "";
@@ -71,9 +76,49 @@ public class UserLogin implements Serializable {
     /**
      * @return the invalid_login message
      */
-    public String getInvalidLogin() {
+    public String getInvalidLoginMessage() {
         return INVALID_LOGIN;
     }
     
+    /**
+     * @return the isValidLogin
+     */
+    public Boolean getIsValidCreate() {
+        return isValidCreate;
+    }
     
+    /**
+     * @param isValidCreate the isValidLogin to set
+     */
+    public void setIsValidCreate(Boolean isValidCreate) {
+        this.isValidCreate = isValidCreate;
+    }
+    
+    /**
+     * @return the user_already_exists message
+     */
+    public String getUserAlreadyExistsMessage() {
+        return USER_ALREADY_EXISTS;
+    }
+    
+    /**
+     * @return the isValidLogin
+     */
+    public Boolean getIsAccountCurrent() {
+        return isAccountCurrent;
+    }
+    
+    /**
+     * @param isAccountCurrent the isValidLogin to set
+     */
+    public void setIsAccountCurrent(Boolean isAccountCurrent) {
+        this.isAccountCurrent = isAccountCurrent;
+    }
+    
+    /**
+     * @return the reset_successful message
+     */
+    public String getAccountResetMessage() {
+        return RESET_SUCCESSFUL;
+    }
 }

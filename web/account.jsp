@@ -22,29 +22,29 @@
     
     if (user.getIsValidLogin() == false) {
 %>
-        <div style="color:red;weight:5px"><%= user.getInvalidLogin() %></div>
+        <div style="color:red;weight:5px"><%= user.getInvalidLoginMessage() %></div>
 <%
     }
 %>
     
 
 
-        <form action="/iGamers/Login" method="GET">
+        <form action="/iGamers/Login" method="POST">
             <table width="350" style="text-align:left;">
                 <tr>
                     <td>Username:  <%= user.getUsername() %></td>
                 </tr>
                 <tr>
-                    <td>Password:  <%= user.getPassword() %>"></td>
+                    <td>Password:  <%= user.getPassword() %></td>
                 </tr>
                 <tr>
-                    <td><input type="button" name="account option" value="Reset Username/Password" style="width:50"></td>
+                    <td><input type="submit" name="account" value="Reset Username/Password"></td>
                 </tr>
                 <tr>
-                    <td><input type="button" name="account option" value="Go to Shopping Cart" style="width:50"></td>
+                    <td><input type="submit" name="account" value="Go to Shopping Cart"></td>
                 </tr>
                 <tr>
-                    <td><input type="button" name="account option" value="Continue Shopping" style="width:50"></td>
+                    <td><input type="submit" name="account" value="Continue Shopping"></td>
                 </tr>
             </table>
         </form>
