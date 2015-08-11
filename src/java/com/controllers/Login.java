@@ -61,55 +61,6 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        HttpSession session = request.getSession();
-        
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String goLogin = request.getParameter("login");
-        String account = request.getParameter("account option");
-        
-        UserLogin user = new UserLogin(username, password);
-        
-        // if user is not logged in (i.e. username is empty ("")
-            // goto login.jsp
-        // else
-            // goto account.jsp
-
-        // if button clicked is Reset U/P
-            // create new user
-        // else if button clicked is Go to Shopping Cart
-            // goto shopping_cart.jsp
-        // else if button clicked is Continue Shopping
-            // goto index.jsp
-        
-        if (goLogin.equals("create")) {
-            // Create new user account in DB
-            
-            // Validate if username already exists
-                // if (user.getUsername().equals(//DB CALL//)) { }
-            
-            
-        } else if (goLogin.equals("Submit")) {
-            // Validate if user info matches DB values
-                // if (user.getUsername().equals(//DB CALL//) && user.getPassword().equals(//DB CALL//)) { user.setIsValidLogin(true) } else { user.setIsValidLogin(false);
-            
-                    // TEST: isValidUser = true;
-                    // TEST: isValidUser = false;
-                    Boolean isValidUser = false;
-                    
-            user.setIsValidLogin(isValidUser);
-                                    System.out.println("TEST = " + user.getIsValidLogin());
-
-            // Forward upon incorrect/correct credentials
-            if (user.getIsValidLogin() == false) {
-
-                session.setAttribute("user", user);
-                response.sendRedirect("login.jsp");
-            } else {
-                // Successful login
-                request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-            }
-        }
     }
 
     /**
@@ -124,6 +75,69 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String goLogin = request.getParameter("login");
+        String account = request.getParameter("account");
+                        
+        UserLogin user = new UserLogin(username, password);
+        
+        /**
+         * From LOGIN.JSP
+         */
+        
+        if (username != null) {
+            if (goLogin.equals("Create New") || goLogin.equals("Reset")) {
+                // Validate if username already exists
+                    // if (user.getUsername().equals(//DB CALL//)) {
+
+                        // TEST: isUserAlreadyExists = false;
+                        Boolean isValidCreate = true;
+                        user.setIsValidCreate(isValidCreate);
+                        // response.sendRedirect("login.jsp");
+                    // } else { // Create new user with user.getUsername() and user.getPassword() in DB }
+                session.setAttribute("user", user);
+                request.getRequestDispatcher("account.jsp").forward(request, response);
+            } else if (goLogin.equals("Submit")) {
+                // Validate if user info matches DB values
+                    // if (user.getUsername().equals(//DB CALL//) && user.getPassword().equals(//DB CALL//)) { user.setIsValidLogin(true) } else { user.setIsValidLogin(false);
+
+                        // TEST: isValidUser = true;
+                        // TEST: isValidUser = false;
+                        Boolean isValidUser = true;
+                        user.setIsValidLogin(isValidUser);
+
+                // Proceed upon incorrect/correct credentials
+                if (user.getIsValidLogin() == false) {
+                    response.sendRedirect("login.jsp");
+                } else {
+                    // Successful login
+                    session.setAttribute("user", user);
+                    request.getRequestDispatcher("account.jsp").forward(request, response);
+                }
+            }
+        } else if (account != null) {
+        
+        /**
+         * From ACCOUNT.JSP
+         */
+
+            if (account.equals("Reset Username/Password")) {
+                user = (UserLogin) session.getAttribute("user");
+                user.setIsAccountCurrent(false);
+                session.setAttribute("user", user);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                // DB - create new user in DB
+                // DB - remove old user credentials from DB
+            } else if (account.equals("Go to Shopping Cart")) {
+                request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
+            } else if (account.equals("Continue Shopping")){
+                request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            }
+        }
     }
 
     /**
