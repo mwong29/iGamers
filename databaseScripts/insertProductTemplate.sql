@@ -1,0 +1,3 @@
+INSERT INTO products (idproduct,product_code,description,price,special_deals,image_path,category,title)
+VALUES (12,0012,'Everything changed with the arrival of the Traveler. It sparked a Golden Age when our civilization spanned our solar system, but it didn\'t last. Something hit us, knocked us down.',59.99,'none','C:\\iGamers\\web\\resources\\images\\games\\ps4\\destiny.jpg','PS4','Destiny');
+select * from products;
