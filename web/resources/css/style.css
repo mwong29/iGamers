@@ -46,7 +46,7 @@ a:hover, a:active {
 
 
 .nav-bar {
-    display: block;
+    display: inline-block;
     width: 120px;
     font-weight: bold;
     color: #FFFFFF;
@@ -54,6 +54,9 @@ a:hover, a:active {
     text-align: center;
     padding: 4px;
     text-decoration: none;
+    appearance: none;
+    box-shadow: none;
+    border: none;
 }
 
 .shopping_cart {
