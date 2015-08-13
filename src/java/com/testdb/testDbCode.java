@@ -22,11 +22,21 @@ public class testDbCode {
     public static void main(String[] args) throws Exception {
 
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             DbUtil dbUtil = new DbUtil();
             dbUtil.connectToDb();;
+            
             dbUtil.printAllProducts();
-            UserLogin userLogin = new UserLogin("JohnDoe","JohnDoe");
-            dbUtil.validateLogin(userLogin);
+            
+            //case sensitive with result true
+            UserLogin userLogin1 = new UserLogin("JohnDoe","JohnDoe");
+            boolean validateLogin1 = dbUtil.validateLogin(userLogin1);
+            System.out.println(validateLogin1);
+            
+            //case sensitive with result false due to lower case 'doe'
+            UserLogin userLogin2 = new UserLogin("Johndoe","JohnDoe");
+            boolean validateLogin2 = dbUtil.validateLogin(userLogin2);
+            System.out.println(validateLogin2);
         } catch (SQLException e) {
             for (Throwable t : e) {
                 t.printStackTrace();

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `igamers` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `igamers`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
 --
 -- Host: localhost    Database: igamers
@@ -31,8 +29,8 @@ CREATE TABLE `user_profile` (
   `idbilling_address` int(11) DEFAULT NULL,
   `idshipping_address` int(11) DEFAULT NULL,
   `idcredit_card_info` int(11) DEFAULT NULL,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `username` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_cs DEFAULT NULL,
+  `password` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_cs DEFAULT NULL,
   PRIMARY KEY (`iduser_profile`),
   UNIQUE KEY `user_name_UNIQUE` (`username`),
   KEY `idbilling_address` (`idbilling_address`),
@@ -63,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-12 18:45:41
+-- Dump completed on 2015-08-13  8:58:10
