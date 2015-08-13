@@ -5,6 +5,8 @@
  */
 package com.testdb;
 
+import com.beans.Address;
+import com.beans.CreditCardInfo;
 import com.beans.UserLogin;
 import com.beans.UserProfile;
 import java.sql.Connection;
@@ -83,29 +85,107 @@ public class DbUtil {
         PreparedStatement ps = connection.prepareStatement(preparedSQL);
         ps.setString(1, userProfile.getUserLogin().getUsername());
         ResultSet result = ps.executeQuery();
-        boolean userNameExists=false;
         while (result.next()) {
+                //if it exists return false which means the username already exists. 
+                //A JSP should probably show the error to the user saying that the usename already exists, pick another username
                 if(result.getString(1).equals("1")){
-                    userNameExists=true;
+                    return false;
                 }
         }
+        //if the username doesn't exist then add the addresses, credit card info, user profile and return true
+        Integer idbilling_address = insertBillingAddress(userProfile.getBillingAddress());
+        Integer idshipping_address = insertShippingAddress(userProfile.getShippingAddress());
+        Integer idcredit_card_info = insertCreditCardInfo(userProfile.getCreditCardInfo());
         
-        //if it exists return false which means the username already exists. 
-        //A JSP should probably show the error to the user saying that the usename already exists, pick another username
-        if(userNameExists){
-            return false;
-        }
-        //if the username doesn't exist then add the user profile and return true
-        else{
-              String preparedQuery = "INSERT INTO user_profile (first_Name, last_name, username, password) VALUES (?, ?, ?, ?);"; 
-              PreparedStatement ps2 = connection.prepareStatement(preparedQuery); 
-              ps2.setString(1, userProfile.getFirstName()); 
-              ps2.setString(2, userProfile.getLastName()); 
-              ps2.setString(3, userProfile.getUserLogin().getUsername()); 
-              ps2.setString(4, userProfile.getUserLogin().getPassword()); 
-              ps2.executeUpdate(); 
-              return true;
-        }
+        String preparedQuery2 = "INSERT INTO user_profile (first_Name, last_name, username, password, idbilling_address, idshipping_address, idcredit_card_info, email_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"; 
+        PreparedStatement ps2 = connection.prepareStatement(preparedQuery2); 
+        ps2.setString(1, userProfile.getFirstName()); 
+        ps2.setString(2, userProfile.getLastName()); 
+        ps2.setString(3, userProfile.getUserLogin().getUsername()); 
+        ps2.setString(4, userProfile.getUserLogin().getPassword()); 
+        ps2.setInt(5, idbilling_address); 
+        ps2.setInt(6, idshipping_address); 
+        ps2.setInt(7, idcredit_card_info); 
+        ps2.setString(8, userProfile.getEmailAddress()); 
+        ps2.executeUpdate(); 
+        
+        return true;
+        
     }
+    
+    private Integer insertBillingAddress(Address address) throws SQLException{
+        
+        String preparedQuery = "INSERT INTO billing_address (street_address, city, state, zip) VALUES (?, ?, ?, ?);"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery); 
+        ps.setString(1, address.getStreetAddress()); 
+        ps.setString(2, address.getCity()); 
+        ps.setString(3, address.getState()); 
+        ps.setInt(4, address.getZip()); 
+        ps.executeUpdate();
+        
+        String preparedSQL2 = "SELECT idbilling_address FROM billing_address WHERE street_address=? AND city=? AND state=? AND zip=? ORDER BY idbilling_address DESC LIMIT 1"; 
+        PreparedStatement ps2 = connection.prepareStatement(preparedSQL2);
+        ps2.setString(1, address.getStreetAddress()); 
+        ps2.setString(2, address.getCity()); 
+        ps2.setString(3, address.getState()); 
+        ps2.setInt(4, address.getZip()); 
+        Integer idbilling_address = null;
+        ResultSet result4 = ps2.executeQuery();
+        while (result4.next()) {
+            idbilling_address = result4.getInt("idbilling_address");
+          }
+        return idbilling_address;
+    }
+    
+    private Integer insertShippingAddress(Address address) throws SQLException{
+        
+        String preparedQuery = "INSERT INTO shipping_address (street_address, city, state, zip) VALUES (?, ?, ?, ?);"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery); 
+        ps.setString(1, address.getStreetAddress()); 
+        ps.setString(2, address.getCity()); 
+        ps.setString(3, address.getState()); 
+        ps.setInt(4, address.getZip()); 
+        ps.executeUpdate();
+        
+        String preparedSQL2 = "SELECT idshipping_address FROM shipping_address WHERE street_address=? AND city=? AND state=? AND zip=? ORDER BY idshipping_address DESC LIMIT 1"; 
+        PreparedStatement ps2 = connection.prepareStatement(preparedSQL2);
+        ps2.setString(1, address.getStreetAddress()); 
+        ps2.setString(2, address.getCity()); 
+        ps2.setString(3, address.getState()); 
+        ps2.setInt(4, address.getZip()); 
+        Integer idshipping_address = null;
+        ResultSet result4 = ps2.executeQuery();
+        while (result4.next()) {
+            idshipping_address = result4.getInt("idshipping_address");
+          }
+        return idshipping_address;
+    }
+    
+    private Integer insertCreditCardInfo(CreditCardInfo creditCardInfo) throws SQLException{
+        
+        String preparedQuery = "INSERT INTO credit_card_info (company, number, name_on_card, expiration_date, cvv) VALUES (?, ?, ?, ?, ?);"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery); 
+        ps.setString(1, creditCardInfo.getCompany()); 
+        ps.setString(2, creditCardInfo.getNumber()); 
+        ps.setString(3, creditCardInfo.getNameOnCard());
+        ps.setString(4, creditCardInfo.getExpirationDate()); 
+        ps.setInt(5, creditCardInfo.getCvv()); 
+        ps.executeUpdate();
+        
+        String preparedSQL2 = "SELECT idcredit_card_info FROM credit_card_info WHERE company=? AND number=? AND name_on_card=? AND expiration_date=? AND cvv=? ORDER BY idcredit_card_info DESC LIMIT 1"; 
+        PreparedStatement ps2 = connection.prepareStatement(preparedSQL2);
+        ps2.setString(1, creditCardInfo.getCompany()); 
+        ps2.setString(2, creditCardInfo.getNumber()); 
+        ps2.setString(3, creditCardInfo.getNameOnCard());
+        ps2.setString(4, creditCardInfo.getExpirationDate()); 
+        ps2.setInt(5, creditCardInfo.getCvv()); 
+        Integer idcredit_card_info = null;
+        ResultSet result4 = ps2.executeQuery();
+        while (result4.next()) {
+            idcredit_card_info = result4.getInt("idcredit_card_info");
+          }
+        return idcredit_card_info;
+    }
+    
 
 }

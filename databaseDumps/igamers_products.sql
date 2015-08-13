@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `products` (
-  `idproduct` int(11) NOT NULL,
+  `idproduct` int(11) NOT NULL AUTO_INCREMENT,
   `product_code` int(11) DEFAULT NULL,
   `description` varchar(1000) DEFAULT NULL,
   `price` double DEFAULT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `products` (
   `title` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idproduct`),
   UNIQUE KEY `product_code_UNIQUE` (`product_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13  9:38:59
+-- Dump completed on 2015-08-13 11:24:50

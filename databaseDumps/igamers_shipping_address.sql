@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `shipping_address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shipping_address` (
-  `idshipping_address` int(11) NOT NULL,
+  `idshipping_address` int(11) NOT NULL AUTO_INCREMENT,
   `street_address` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `state` varchar(45) DEFAULT NULL,
   `zip` int(11) DEFAULT NULL,
   PRIMARY KEY (`idshipping_address`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `shipping_address` (
 
 LOCK TABLES `shipping_address` WRITE;
 /*!40000 ALTER TABLE `shipping_address` DISABLE KEYS */;
-INSERT INTO `shipping_address` VALUES (1,'831 Neverland Street','Baltimore','MD',21224),(2,'123 Tommorowland Road','Baltimore','MD',21224),(3,'321 Whatever Avenue','Baltimore','MD',21224),(4,'9999 Tilapia Street','Baltimore','MD',21224),(5,'5465 French Road','Baltimore','MD',21224);
+INSERT INTO `shipping_address` VALUES (1,'831 Neverland Street','Baltimore','MD',21224),(2,'123 Tommorowland Road','Baltimore','MD',21224),(3,'321 Whatever Avenue','Baltimore','MD',21224),(4,'9999 Tilapia Street','Baltimore','MD',21224),(5,'5465 French Road','Baltimore','MD',21224),(6,'5867 Underhill Lane','Franklin','MD',12367),(7,'5867 Underhill Lane','Franklin','MD',12367),(8,'5867 Underhill Lane','Franklin','MD',12367),(9,'5867 Underhill Lane','Franklin','MD',12367);
 /*!40000 ALTER TABLE `shipping_address` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13  9:38:59
+-- Dump completed on 2015-08-13 11:24:50
