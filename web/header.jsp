@@ -4,6 +4,14 @@
     Author     : Christopher
 --%>
 
+<%@page import="com.beans.UserLogin"%>
+<%
+    UserLogin user_for_header = (UserLogin) session.getAttribute("user");
+
+    if (user_for_header == null) {
+        user_for_header = new UserLogin();
+    }
+%>
 <html>
     <head>
         <title>iGamers: The only place to buy games</title>
@@ -19,13 +27,23 @@
                 Play to win!
             </span>
         </span>
-        
-        
         <span class="my_account">
             <a href="/iGamers/Account"><img class="my_account_icon" src="resources/images/my_account_icon.png" alt="My Account"></a>
         </span>
         <span class="my_account_title">
-            <a href="/iGamers/Account">My Account</a>
+            <a href="/iGamers/Account">
+            <%
+                if (user_for_header.getUsername() == "")
+                {
+                    out.println("My Account");
+                }
+                else
+                {
+                    out.println(user_for_header.getUsername());
+                }
+                
+            
+            %></a>
         </span>
         
         <br>
