@@ -31,15 +31,15 @@
         <br>
         
         <span class="my_shopping_cart">
-            <a href="shopping_cart.jsp"><img class="shopping_cart" src="resources/images/shopping_cart.png" alt="Shopping Cart"></a>
+            <a href="/iGamers/Cart"><img class="shopping_cart" src="resources/images/shopping_cart.png" alt="Shopping Cart"></a>
         </span>
         <span class="my_cart">
-            <a href="shopping_cart.jsp">My Cart</a>
+            <a href="/iGamers/Cart">My Cart</a>
         </span>
         
         <br>
         <ul>
-            <li><a href="index.jsp" class="nav-bar">Home</a></li>
+            <li><a href="/iGamers/" class="nav-bar">Home</a></li>
             <li><a href="browse.jsp?console=playstation4" class="nav-bar">PS4</a></li>
             <li><a href="browse.jsp?console=xboxone" class="nav-bar">Xbox One</a></li>
             <li><a href="browse.jsp?console=wiiu" class="nav-bar">Wii U</a></li>
