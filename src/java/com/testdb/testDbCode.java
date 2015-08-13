@@ -52,6 +52,9 @@ public class testDbCode {
             UserProfile userProfile = new UserProfile(userLogin3, "Bob", "Thorton", billingAddress, shippingAddress, creditCardInfo, "frankUnderhill@gmail.com");
             boolean createProfileSuccess = dbUtil.createProfile(userProfile);
             System.out.println("createProfileSuccess = " + createProfileSuccess);
+            
+            UserProfile userProfile5 = dbUtil.selectUserProfileByUserLogin(userLogin3);
+            System.out.println("selected user profile where username = " + userLogin3.getUsername() + "and it has first name = " + userProfile5.getFirstName());
         } catch (SQLException e) {
             for (Throwable t : e) {
                 t.printStackTrace();

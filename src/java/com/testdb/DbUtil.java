@@ -113,6 +113,77 @@ public class DbUtil {
         
     }
     
+    //This function gets/selects a user profile from the database
+    //returns null if it isn't found
+    //this function could be used when a user is going to checkout and you want to populate his form data for him
+    public UserProfile selectUserProfileByUserLogin(UserLogin userLogin) throws SQLException {
+        UserProfile userProfile = null;
+        Address billingAddress = null;
+        Address shippingAddress = null;
+        CreditCardInfo creditCardInfo = null;
+        String firstName = null;
+        String lastName = null;
+        String emailAddress = null;
+        Integer idBillingAddress = null;
+        Integer idShippingAddress = null;
+        Integer idCreditCardInfo = null;
+        
+        String preparedSQL = "SELECT * FROM user_profile WHERE username=?"; 
+        PreparedStatement ps = connection.prepareStatement(preparedSQL);
+        ps.setString(1, userLogin.getUsername());
+        ResultSet result = ps.executeQuery();
+        
+        while (result.next()) {
+                firstName = result.getString("first_name");
+                lastName = result.getString("last_name");
+                emailAddress = result.getString("email_address");
+                idBillingAddress = result.getInt("idbilling_address");
+                idShippingAddress = result.getInt("idshipping_address");
+                idCreditCardInfo = result.getInt("idcredit_card_info");
+        }
+        
+        String preparedQuery2 = "SELECT * FROM billing_address WHERE idbilling_address=?;"; 
+        PreparedStatement ps2 = connection.prepareStatement(preparedQuery2);
+        ps2.setInt(1, idBillingAddress); 
+        ResultSet result2 = ps2.executeQuery();
+        while (result2.next()) {
+                String streetAddress = result2.getString("street_address");
+                String city = result2.getString("city");
+                String state = result2.getString("state");
+                Integer zip = result2.getInt("zip");
+                billingAddress = new Address(streetAddress, city, state, zip);
+        }
+        
+        String preparedQuery3 = "SELECT * FROM shipping_address WHERE idshipping_address=?;"; 
+        PreparedStatement ps3 = connection.prepareStatement(preparedQuery3);
+        ps3.setInt(1, idShippingAddress); 
+        ResultSet result3 = ps3.executeQuery();
+        while (result3.next()) {
+                String streetAddress = result3.getString("street_address");
+                String city = result3.getString("city");
+                String state = result3.getString("state");
+                Integer zip = result3.getInt("zip");
+                shippingAddress = new Address(streetAddress, city, state, zip);
+        }
+        
+        String preparedQuery4 = "SELECT * FROM credit_card_info WHERE idcredit_card_info=?;"; 
+        PreparedStatement ps4 = connection.prepareStatement(preparedQuery4);
+        ps4.setInt(1, idCreditCardInfo); 
+        ResultSet result4 = ps4.executeQuery();
+        while (result4.next()) {
+                String company = result4.getString("company");
+                String number = result4.getString("number");
+                String nameOnCard = result4.getString("name_on_card");
+                String expirationDate = result4.getString("expiration_date");
+                Integer cvv = result4.getInt("cvv");
+                creditCardInfo = new CreditCardInfo(company, number, nameOnCard, expirationDate, cvv);
+        }
+        
+        userProfile = new UserProfile(userLogin, firstName, lastName, billingAddress, shippingAddress, creditCardInfo, emailAddress);
+        
+        return userProfile;
+    }
+    
     private Integer insertBillingAddress(Address address) throws SQLException{
         
         String preparedQuery = "INSERT INTO billing_address (street_address, city, state, zip) VALUES (?, ?, ?, ?);"; 
