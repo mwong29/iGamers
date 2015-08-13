@@ -31,15 +31,16 @@ CREATE TABLE `user_profile` (
   `idcredit_card_info` int(11) DEFAULT NULL,
   `username` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_cs DEFAULT NULL,
   `password` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_cs DEFAULT NULL,
+  `email_address` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`iduser_profile`),
   UNIQUE KEY `user_name_UNIQUE` (`username`),
-  KEY `idbilling_address` (`idbilling_address`),
-  KEY `idshipping_address` (`idshipping_address`),
+  KEY `idbilling_address_idx` (`idbilling_address`),
+  KEY `idshipping_address_idx` (`idshipping_address`),
   KEY `idcredit_card_info_idx` (`idcredit_card_info`),
   CONSTRAINT `idbilling_address` FOREIGN KEY (`idbilling_address`) REFERENCES `billing_address` (`idbilling_address`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idcredit_card_info` FOREIGN KEY (`idcredit_card_info`) REFERENCES `credit_card_info` (`idcredit_card_info`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idshipping_address` FOREIGN KEY (`idshipping_address`) REFERENCES `shipping_address` (`idshipping_address`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +49,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (1,'John','Doe',1,1,1,'JohnDoe','JohnDoe'),(2,'Ben','Biggie',2,2,2,'BenBiggie','Tux'),(3,'Gordon','Ramsey',3,3,3,'Gordo','Ramrod'),(4,'Tom','Brady',4,4,4,'tommy5','braid'),(5,'Frank','Redhot',5,5,5,'franky','spicey'),(6,'Eric','Bond',NULL,NULL,NULL,'EricBond','EricBond'),(7,'Eric','Vondie',NULL,NULL,NULL,'EricVondie','EricVondie');
+INSERT INTO `user_profile` VALUES (1,'John','Doe',1,1,1,'JohnDoe','JohnDoe',NULL),(2,'Ben','Biggie',2,2,2,'BenBiggie','Tux',NULL),(3,'Gordon','Ramsey',3,3,3,'Gordo','Ramrod',NULL),(4,'Tom','Brady',4,4,4,'tommy5','braid',NULL),(20,'Frank','Tanky',21,8,8,'FrankTanky','FrankTanky','frankUnderhill@gmail.com'),(21,'Bob','Thorton',22,9,9,'BobThor','BobThorn','frankUnderhill@gmail.com');
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13  9:38:59
+-- Dump completed on 2015-08-13 11:24:50

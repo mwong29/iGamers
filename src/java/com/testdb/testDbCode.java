@@ -5,6 +5,8 @@
  */
 package com.testdb;
 
+import com.beans.Address;
+import com.beans.CreditCardInfo;
 import com.beans.UserLogin;
 import com.beans.UserProfile;
 import java.sql.Connection;
@@ -39,13 +41,17 @@ public class testDbCode {
             boolean validateLogin2 = dbUtil.validateLogin(userLogin2);
             System.out.println(validateLogin2);
             
-            //tests createProfile using UserLogin(username,password), firstName, and lastName. No addresses or credit card info
+            //tests createProfile using all fields
             //if the username already exists in the database then this returns false. IF you want a true result
             //you may need to change the username in the UserLogin below since the username in this code has probably 
             //already be inserted into the database. 
-            UserProfile userProfile = new UserProfile(new UserLogin("KevinSpacey", "EricHogan"), "Eric", "Hogan");
+            Address billingAddress = new Address("5867 Underhill Lane", "Franklin", "MD", 12367);
+            Address shippingAddress = new Address("5867 Underhill Lane", "Franklin", "MD", 12367);
+            CreditCardInfo creditCardInfo = new CreditCardInfo("Visa", "1234567812345678", "Bob Thorton", "06/15/2017", 4567);
+            UserLogin userLogin3 = new UserLogin("BobThor2", "BobThorn");
+            UserProfile userProfile = new UserProfile(userLogin3, "Bob", "Thorton", billingAddress, shippingAddress, creditCardInfo, "frankUnderhill@gmail.com");
             boolean createProfileSuccess = dbUtil.createProfile(userProfile);
-            System.out.println(createProfileSuccess);
+            System.out.println("createProfileSuccess = " + createProfileSuccess);
         } catch (SQLException e) {
             for (Throwable t : e) {
                 t.printStackTrace();

@@ -17,6 +17,7 @@ public class UserProfile implements Serializable {
     private Address billingAddress;
     private Address shippingAddress;
     private CreditCardInfo creditCardInfo;
+    private String emailAddress;
     
     public UserProfile() {
         userLogin = null;
@@ -25,24 +26,17 @@ public class UserProfile implements Serializable {
         billingAddress = null;
         shippingAddress = null;
         creditCardInfo = null;
+        emailAddress = "";
     }
     
-    public UserProfile(UserLogin userLogin, String firstName, String lastName) {
+    public UserProfile(UserLogin userLogin, String firstName, String lastName, Address billingAddress, Address shippingAddress, CreditCardInfo creditCardInfo, String emailAddress) {
         this.userLogin = userLogin;
         this.firstName = firstName;
-        this.lastName =lastName;
-        this.billingAddress = null;
-        this.shippingAddress = null;
-        this.creditCardInfo = null;
-    }
-    
-    public UserProfile(UserLogin userLogin, String firstName, String lastName, Address billingAddress, Address shippingAddress, CreditCardInfo creditCardInfo) {
-        this.userLogin = null;
-        this.firstName = "";
-        this.lastName = "";
-        this.billingAddress = null;
-        this.shippingAddress = null;
-        this.creditCardInfo = null;
+        this.lastName = lastName;
+        this.billingAddress = billingAddress;
+        this.shippingAddress = shippingAddress;
+        this.creditCardInfo = creditCardInfo;
+        this.emailAddress = emailAddress;
     }
 
     /**
@@ -127,5 +121,19 @@ public class UserProfile implements Serializable {
      */
     public void setCreditCardInfo(CreditCardInfo creditCardInfo) {
         this.creditCardInfo = creditCardInfo;
+    }
+    
+    /**
+     * @return the emailAddress
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    /**
+     * @param emailAddress the emailAddress to set
+     */
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 }
