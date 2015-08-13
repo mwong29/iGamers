@@ -6,8 +6,12 @@
 package com.controllers;
 
 import com.beans.UserLogin;
+import com.testdb.DbUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -94,6 +98,7 @@ public class Login extends HttpServlet {
                 // Validate if username already exists
                     // if (user.getUsername().equals(//DB CALL//)) {
 
+                
                         // TEST: isUserAlreadyExists = false;
                         Boolean isValidCreate = true;
                         user.setIsValidCreate(isValidCreate);
@@ -103,16 +108,25 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("account.jsp").forward(request, response);
             } else if (goLogin.equals("Submit")) {
                 // Validate if user info matches DB values
-                    // if (user.getUsername().equals(//DB CALL//) && user.getPassword().equals(//DB CALL//)) { user.setIsValidLogin(true) } else { user.setIsValidLogin(false);
-
-                        // TEST: isValidUser = true;
-                        // TEST: isValidUser = false;
-                        Boolean isValidUser = true;
-                        user.setIsValidLogin(isValidUser);
+                try {
+                    DbUtil dbUtil = new DbUtil();
+                    Class.forName("com.mysql.jdbc.Driver");
+                    dbUtil.connectToDb();
+                    Boolean isValidLogin = dbUtil.validateLogin(user);
+                    user.setIsValidLogin(isValidLogin);
+                } catch (SQLException e) {
+                    for (Throwable t : e) {
+                        t.printStackTrace();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
 
                 // Proceed upon incorrect/correct credentials
                 if (user.getIsValidLogin() == false) {
-                    response.sendRedirect("login.jsp");
+                    //response.sendRedirect("login.jsp");
+                    session.setAttribute("user", user);
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 } else {
                     // Successful login
                     session.setAttribute("user", user);
