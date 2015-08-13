@@ -4,6 +4,7 @@
     Author     : Maurice Wong
 --%>
 
+<%@page import="com.beans.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ include file="header.jsp" %>
@@ -14,18 +15,53 @@
     </head>
     <body>
         <% 
-            String selected_console = request.getParameter("console");
-            out.println(selected_console);
+            String selected_console = (String) session.getAttribute("console");
+            out.println(selected_console + " Games:<br /><br />");
             
         %>
-        <form method="get" action="browse.jsp">
-            <select name="console">
-                <option value="playstation4">PlayStation 4</option>
-                <option value="xboxone">Xbox One</option>
-                <option value="wiiu">Wii U</option>
-                <option value="pc">PC</option>
+        <form method="get" action="/iGamers/Cart">
+        <%
+            if (selected_console.equals("PS4")) {
+        %>
+        
+            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+                <option value="PS4 Game1">PS4 Game1</option>
+                <option value="PS4 Game2">PS4 Game2</option>
+                <option value="PS4 Game3">PS4 Game3</option>
+                <option value="PS4 Game4">PS4 Game4</option>
             </select>
-            <input type="submit" value="Go">
+        <%
+            } else if (selected_console.equals("Xbox One")) {
+        %>
+            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+                <option value="Xbox One Game1">Xbox One Game1</option>
+                <option value="Xbox One Game2">Xbox One Game2</option>
+                <option value="Xbox One Game3">Xbox One Game3</option>
+                <option value="Xbox One Game4">Xbox One Game4</option>
+            </select>
+        <%
+            } else if (selected_console.equals("Wii U")) {
+        %>
+            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+                <option value="Wii U Game1">Wii U Game1</option>
+                <option value="Wii U Game2">Wii U Game2</option>
+                <option value="Wii U Game3">Wii U Game3</option>
+                <option value="Wii U Game4">Wii U Game4</option>
+            </select>
+        <%
+            } else if (selected_console.equals("PC")) {
+        %>
+            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+                <option value="PC Game1">PC Game1</option>
+                <option value="PC Game2">PC Game2</option>
+                <option value="PC Game3">PC Game3</option>
+                <option value="PC Game4">PC Game4</option>
+            </select>
+        <%
+            }
+        %>
+            <br /><br />
+            <input type="submit" value="Add To Cart">
         </form>
     </body>
 </html>
