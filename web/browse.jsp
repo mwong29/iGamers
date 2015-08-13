@@ -24,7 +24,7 @@
             if (selected_console.equals("PS4")) {
         %>
         
-            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" multiple="multiple" size="3" style="width: 200px;">
                 <option value="PS4 Game1">PS4 Game1</option>
                 <option value="PS4 Game2">PS4 Game2</option>
                 <option value="PS4 Game3">PS4 Game3</option>
@@ -33,7 +33,7 @@
         <%
             } else if (selected_console.equals("Xbox One")) {
         %>
-            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" multiple="multiple" size="3" style="width: 200px;">
                 <option value="Xbox One Game1">Xbox One Game1</option>
                 <option value="Xbox One Game2">Xbox One Game2</option>
                 <option value="Xbox One Game3">Xbox One Game3</option>
@@ -42,7 +42,7 @@
         <%
             } else if (selected_console.equals("Wii U")) {
         %>
-            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" multiple="multiple" size="3" style="width: 200px;">
                 <option value="Wii U Game1">Wii U Game1</option>
                 <option value="Wii U Game2">Wii U Game2</option>
                 <option value="Wii U Game3">Wii U Game3</option>
@@ -51,7 +51,7 @@
         <%
             } else if (selected_console.equals("PC")) {
         %>
-            <select name="console" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" multiple="multiple" size="3" style="width: 200px;">
                 <option value="PC Game1">PC Game1</option>
                 <option value="PC Game2">PC Game2</option>
                 <option value="PC Game3">PC Game3</option>
