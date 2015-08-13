@@ -5,6 +5,7 @@
  */
 package com.testdb;
 
+import com.beans.UserLogin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,6 +25,8 @@ public class testDbCode {
             DbUtil dbUtil = new DbUtil();
             dbUtil.connectToDb();;
             dbUtil.printAllProducts();
+            UserLogin userLogin = new UserLogin("JohnDoe","JohnDoe");
+            dbUtil.validateLogin(userLogin);
         } catch (SQLException e) {
             for (Throwable t : e) {
                 t.printStackTrace();
