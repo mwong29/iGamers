@@ -22,10 +22,10 @@
         
         
         <span class="my_account">
-            <a href="/iGamers/Home"><img class="my_account_icon" src="resources/images/my_account_icon.png" alt="My Account"></a>
+            <a href="/iGamers/Account"><img class="my_account_icon" src="resources/images/my_account_icon.png" alt="My Account"></a>
         </span>
         <span class="my_account_title">
-            <a href="/iGamers/Home">My Account</a>
+            <a href="/iGamers/Account">My Account</a>
         </span>
         
         <br>
@@ -38,12 +38,22 @@
         </span>
         
         <br>
-        <ul>
+        <form action="/iGamers/Navigate" method="GET">
+            <ul>
+                <li><input class="nav-bar" type="submit" name="nav" value="Home" /></li>
+                <li><input class="nav-bar" type="submit" name="nav" value="PS4" /></li>
+                <li><input class="nav-bar" type="submit" name="nav" value="Xbox One" /></li>
+                <li><input class="nav-bar" type="submit" name="nav" value="Wii U" /></li>
+                <li><input class="nav-bar" type="submit" name="nav" value="PC" /></li>
+                <li><input class="nav-bar" type="submit" name="nav" value="About" /></li>
+            </ul>
+        </form>
+<!--        <ul>
             <li><a href="/iGamers/" class="nav-bar">Home</a></li>
-            <li><a href="browse.jsp?console=playstation4" class="nav-bar">PS4</a></li>
-            <li><a href="browse.jsp?console=xboxone" class="nav-bar">Xbox One</a></li>
-            <li><a href="browse.jsp?console=wiiu" class="nav-bar">Wii U</a></li>
-            <li><a href="browse.jsp?console=pc" class="nav-bar">PC</a></li>
-            <li><a href="#about" class="nav-bar">About</a></li>
+            <li><a href="browse.jsp?console=PlayStation 4" class="nav-bar">PS4</a></li>
+            <li><a href="browse.jsp?console=Xbox One" class="nav-bar">Xbox One</a></li>
+            <li><a href="browse.jsp?console=Wii U" class="nav-bar">Wii U</a></li>
+            <li><a href="browse.jsp?console=PC" class="nav-bar">PC</a></li>
+            <li><a href="about.html" class="nav-bar">About</a></li>
         </ul>
-        <br>
+-->        <br>
