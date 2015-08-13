@@ -64,7 +64,7 @@ public class ConfirmController extends HttpServlet
         session.setAttribute("payment", payment);
         if (payment.isIsValid() == false)
         {
-            url = "/payment.jsp";
+            url = "/iGamers/payment.jsp";
             response.sendRedirect(url);
         }
         else

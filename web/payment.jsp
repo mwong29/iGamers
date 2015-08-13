@@ -29,6 +29,8 @@
             out.println("<br/><strong>Total Cost:</strong> " + total_cost + "<br/><br/>");
         %>
         <br/>
+        <jsp:useBean id="payment" scope="session" class="com.beans.PaymentBean" />
+        <p style="color: red"><i><%= payment.getMessages() %></i></p>
         <form action="ConfirmController" method="post">
             <input type="text" name="total_cost" value="<% out.println(total_cost); %>" hidden="true"><br/>
             <strong>Email:</strong> <input type="text" name="email"> <br/>
