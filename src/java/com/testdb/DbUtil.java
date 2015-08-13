@@ -6,6 +6,7 @@
 package com.testdb;
 
 import com.beans.UserLogin;
+import com.beans.UserProfile;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -71,6 +72,40 @@ public class DbUtil {
             }
         }
         return false;
+    }
+    
+    //This function creates a uer profile
+    //returns true if the login exists
+    //return false if the login does not exist
+    public boolean createProfile(UserProfile userProfile) throws SQLException {
+        //first check to see if the username exists already. Passwords, firstName, and lastName can be reused between users
+        String preparedSQL = "SELECT EXISTS(SELECT 1 FROM user_profile WHERE username=?)"; 
+        PreparedStatement ps = connection.prepareStatement(preparedSQL);
+        ps.setString(1, userProfile.getUserLogin().getUsername());
+        ResultSet result = ps.executeQuery();
+        boolean userNameExists=false;
+        while (result.next()) {
+                if(result.getString(1).equals("1")){
+                    userNameExists=true;
+                }
+        }
+        
+        //if it exists return false which means the username already exists. 
+        //A JSP should probably show the error to the user saying that the usename already exists, pick another username
+        if(userNameExists){
+            return false;
+        }
+        //if the username doesn't exist then add the user profile and return true
+        else{
+              String preparedQuery = "INSERT INTO user_profile (first_Name, last_name, username, password) VALUES (?, ?, ?, ?);"; 
+              PreparedStatement ps2 = connection.prepareStatement(preparedQuery); 
+              ps2.setString(1, userProfile.getFirstName()); 
+              ps2.setString(2, userProfile.getLastName()); 
+              ps2.setString(3, userProfile.getUserLogin().getUsername()); 
+              ps2.setString(4, userProfile.getUserLogin().getPassword()); 
+              ps2.executeUpdate(); 
+              return true;
+        }
     }
 
 }

@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `user_profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_profile` (
-  `iduser_profile` int(11) NOT NULL,
+  `iduser_profile` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `idbilling_address` int(11) DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `user_profile` (
   CONSTRAINT `idbilling_address` FOREIGN KEY (`idbilling_address`) REFERENCES `billing_address` (`idbilling_address`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idcredit_card_info` FOREIGN KEY (`idcredit_card_info`) REFERENCES `credit_card_info` (`idcredit_card_info`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idshipping_address` FOREIGN KEY (`idshipping_address`) REFERENCES `shipping_address` (`idshipping_address`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (1,'John','Doe',1,1,1,'JohnDoe','JohnDoe'),(2,'Ben','Biggie',2,2,2,'BenBiggie','Tux'),(3,'Gordon','Ramsey',3,3,3,'Gordo','Ramrod'),(4,'Tom','Brady',4,4,4,'tommy5','braid'),(5,'Frank','Redhot',5,5,5,'franky','spicey');
+INSERT INTO `user_profile` VALUES (1,'John','Doe',1,1,1,'JohnDoe','JohnDoe'),(2,'Ben','Biggie',2,2,2,'BenBiggie','Tux'),(3,'Gordon','Ramsey',3,3,3,'Gordo','Ramrod'),(4,'Tom','Brady',4,4,4,'tommy5','braid'),(5,'Frank','Redhot',5,5,5,'franky','spicey'),(6,'Eric','Bond',NULL,NULL,NULL,'EricBond','EricBond'),(7,'Eric','Vondie',NULL,NULL,NULL,'EricVondie','EricVondie');
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13  8:58:10
+-- Dump completed on 2015-08-13  9:38:59

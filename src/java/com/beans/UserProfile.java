@@ -27,6 +27,15 @@ public class UserProfile implements Serializable {
         creditCardInfo = null;
     }
     
+    public UserProfile(UserLogin userLogin, String firstName, String lastName) {
+        this.userLogin = userLogin;
+        this.firstName = firstName;
+        this.lastName =lastName;
+        this.billingAddress = null;
+        this.shippingAddress = null;
+        this.creditCardInfo = null;
+    }
+    
     public UserProfile(UserLogin userLogin, String firstName, String lastName, Address billingAddress, Address shippingAddress, CreditCardInfo creditCardInfo) {
         this.userLogin = null;
         this.firstName = "";
