@@ -38,7 +38,7 @@ CREATE TABLE `billing_address` (
 
 LOCK TABLES `billing_address` WRITE;
 /*!40000 ALTER TABLE `billing_address` DISABLE KEYS */;
-INSERT INTO `billing_address` VALUES (1,'831 Neverland Street','Baltimore','MD',21224),(2,'123 Tommorowland Road','Baltimore','MD',21224),(3,'321 Whatever Avenue','Baltimore','MD',21224),(4,'9999 Tilapia Street','Baltimore','MD',21224),(5,'5465 French Road','Baltimore','MD',21224),(6,'3534 Hank Road','Hank Town','VA',12345),(20,'5867 Underhill Lane','Franklin','MD',12367),(21,'5867 Underhill Lane','Franklin','MD',12367),(22,'5867 Underhill Lane','Franklin','MD',12367),(23,'5867 Underhill Lane','Franklin','MD',12367);
+INSERT INTO `billing_address` VALUES (1,'831 Neverland Street','Baltimore','MD',21224),(2,'123 Tommorowland Road','Baltimore','MD',21224),(3,'321 Whatever Avenue','Baltimore','MD',21224),(4,'9999 Tilapia Street','Baltimore','MD',21224),(5,'5465 French Road','Baltimore','MD',21224),(6,'3534 Hank Road','Hank Town','VA',12345),(20,'5867 Underhill Lane','Franklin','MD',12367),(21,'5867 Underhill Lane','Franklin','MD',12367),(22,'5867 Underhill Lane','Franklin','MD',12367),(23,'1000 Underhill Lane','Franklin','MD',12367);
 /*!40000 ALTER TABLE `billing_address` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13 12:19:53
+-- Dump completed on 2015-08-13 12:59:52

@@ -55,6 +55,14 @@ public class testDbCode {
             
             UserProfile userProfile5 = dbUtil.selectUserProfileByUserLogin(userLogin3);
             System.out.println("selected user profile where username = " + userLogin3.getUsername() + "and it has first name = " + userProfile5.getFirstName());
+        
+            Address billingAddress2 = new Address("1000 Underhill Lane", "Franklin", "MD", 12367);
+            Address shippingAddress2 = new Address("5867 Underhill Lane", "Somewere", "VA", 11834);
+            CreditCardInfo creditCardInfo2 = new CreditCardInfo("MasterCard", "7474747474747474", "Bob Thorton", "06/18/2017", 4567);
+            UserLogin userLogin6 = new UserLogin("BobThor2", "BobThorn");
+            UserProfile userProfile2 = new UserProfile(userLogin6, "Bob", "Thorton", billingAddress2, shippingAddress2, creditCardInfo2, "bobbob@gmail.com");
+            boolean resultUpdateProfile = dbUtil.updateProfile(userProfile2);
+            System.out.println(resultUpdateProfile);
         } catch (SQLException e) {
             for (Throwable t : e) {
                 t.printStackTrace();

@@ -49,7 +49,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (1,'John','Doe',1,1,1,'JohnDoe','JohnDoe',NULL),(2,'Ben','Biggie',2,2,2,'BenBiggie','Tux',NULL),(3,'Gordon','Ramsey',3,3,3,'Gordo','Ramrod',NULL),(4,'Tom','Brady',4,4,4,'tommy5','braid',NULL),(20,'Frank','Tanky',21,8,8,'FrankTanky','FrankTanky','frankUnderhill@gmail.com'),(21,'Bob','Thorton',22,9,9,'BobThor','BobThorn','frankUnderhill@gmail.com'),(22,'Bob','Thorton',23,10,10,'BobThor2','BobThorn','frankUnderhill@gmail.com');
+INSERT INTO `user_profile` VALUES (1,'John','Doe',1,1,1,'JohnDoe','JohnDoe',NULL),(2,'Ben','Biggie',2,2,2,'BenBiggie','Tux',NULL),(3,'Gordon','Ramsey',3,3,3,'Gordo','Ramrod',NULL),(4,'Tom','Brady',4,4,4,'tommy5','braid',NULL),(20,'Frank','Tanky',21,8,8,'FrankTanky','FrankTanky','frankUnderhill@gmail.com'),(21,'Bob','Thorton',22,9,9,'BobThor','BobThorn','frankUnderhill@gmail.com'),(22,'Bob','Thorton',23,10,10,'BobThor2','BobThorn','bobbob@gmail.com');
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13 12:19:53
+-- Dump completed on 2015-08-13 12:59:53

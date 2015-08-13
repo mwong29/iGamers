@@ -79,6 +79,50 @@ public class DbUtil {
     //This function creates a uer profile
     //returns true if the login exists
     //return false if the login does not exist
+    public boolean updateProfile(UserProfile userProfile) throws SQLException {
+        String preparedSQL = "SELECT EXISTS(SELECT 1 FROM user_profile WHERE username=?)"; 
+        PreparedStatement ps = connection.prepareStatement(preparedSQL);
+        ps.setString(1, userProfile.getUserLogin().getUsername());
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                //if it exists return false which means the username doesn't exist. 
+                if(result.getString(1).equals("0")){
+                    return false;
+                }
+        }
+        
+        Integer idBillingAddress = null;
+        Integer idShippingAddress = null;
+        Integer idCreditCardInfo = null;
+        String preparedSQL2 = "SELECT * FROM user_profile WHERE username=?"; 
+        PreparedStatement ps2 = connection.prepareStatement(preparedSQL2);
+        ps2.setString(1, userProfile.getUserLogin().getUsername());
+        ResultSet result2 = ps2.executeQuery();
+        while (result2.next()) {
+                idBillingAddress = result2.getInt("idbilling_address");
+                idShippingAddress = result2.getInt("idshipping_address");
+                idCreditCardInfo = result2.getInt("idcredit_card_info");
+        }
+        
+        //if the username doesn't exist then add the addresses, credit card info, user profile and return true
+        boolean updateBillingAddResult = updateBillingAddress(userProfile.getBillingAddress(), idBillingAddress);
+        boolean updateShippingAddResult = updateShippingAddress(userProfile.getShippingAddress(), idShippingAddress);
+        boolean updateCreditCardResult = updateCreditCardInfo(userProfile.getCreditCardInfo(), idCreditCardInfo);
+        
+        String preparedQuery3 = "UPDATE user_profile SET first_name=?, last_name=?, email_address=? WHERE username=?;"; 
+        PreparedStatement ps3 = connection.prepareStatement(preparedQuery3); 
+        ps3.setString(1, userProfile.getFirstName()); 
+        ps3.setString(2, userProfile.getLastName()); 
+        ps3.setString(3, userProfile.getEmailAddress()); 
+        ps3.setString(4, userProfile.getUserLogin().getUsername()); 
+        ps3.executeUpdate();
+        return true;
+        
+    }
+    
+    //This function creates a uer profile
+    //returns true if the login exists
+    //return false if the login does not exist
     public boolean createProfile(UserProfile userProfile) throws SQLException {
         //first check to see if the username exists already. Passwords, firstName, and lastName can be reused between users
         String preparedSQL = "SELECT EXISTS(SELECT 1 FROM user_profile WHERE username=?)"; 
@@ -258,5 +302,44 @@ public class DbUtil {
         return idcredit_card_info;
     }
     
+    
+    private boolean updateBillingAddress(Address address, Integer idBillingAddress) throws SQLException{
+        
+        String preparedQuery = "UPDATE billing_address SET street_address=?, city=?, state=?, zip=? WHERE idbilling_address=?;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery); 
+        ps.setString(1, address.getStreetAddress()); 
+        ps.setString(2, address.getCity()); 
+        ps.setString(3, address.getState()); 
+        ps.setInt(4, address.getZip()); 
+        ps.setInt(5, idBillingAddress);
+        ps.executeUpdate();
+        return true;
+    }
+    
+    private boolean updateShippingAddress(Address address, Integer idShippingAddress) throws SQLException{
+        
+        String preparedQuery = "UPDATE shipping_address SET street_address=?, city=?, state=?, zip=? WHERE idshipping_address=?;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery); 
+        ps.setString(1, address.getStreetAddress()); 
+        ps.setString(2, address.getCity()); 
+        ps.setString(3, address.getState()); 
+        ps.setInt(4, address.getZip()); 
+        ps.setInt(5, idShippingAddress);
+        ps.executeUpdate();
+        return true;
+    }
 
+    private boolean updateCreditCardInfo(CreditCardInfo creditCardInfo, Integer idCreditCardInfo) throws SQLException{
+        
+        String preparedQuery = "UPDATE credit_card_info SET company=?, number=?, name_on_card=?, expiration_date=?, cvv=? WHERE idcredit_card_info=?;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery); 
+        ps.setString(1, creditCardInfo.getCompany()); 
+        ps.setString(2, creditCardInfo.getNumber()); 
+        ps.setString(3, creditCardInfo.getNameOnCard()); 
+        ps.setString(4, creditCardInfo.getExpirationDate()); 
+        ps.setInt(5, creditCardInfo.getCvv());
+        ps.setInt(6, idCreditCardInfo);
+        ps.executeUpdate();
+        return true;
+    }
 }

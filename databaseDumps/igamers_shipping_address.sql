@@ -38,7 +38,7 @@ CREATE TABLE `shipping_address` (
 
 LOCK TABLES `shipping_address` WRITE;
 /*!40000 ALTER TABLE `shipping_address` DISABLE KEYS */;
-INSERT INTO `shipping_address` VALUES (1,'831 Neverland Street','Baltimore','MD',21224),(2,'123 Tommorowland Road','Baltimore','MD',21224),(3,'321 Whatever Avenue','Baltimore','MD',21224),(4,'9999 Tilapia Street','Baltimore','MD',21224),(5,'5465 French Road','Baltimore','MD',21224),(6,'5867 Underhill Lane','Franklin','MD',12367),(7,'5867 Underhill Lane','Franklin','MD',12367),(8,'5867 Underhill Lane','Franklin','MD',12367),(9,'5867 Underhill Lane','Franklin','MD',12367),(10,'5867 Underhill Lane','Franklin','MD',12367);
+INSERT INTO `shipping_address` VALUES (1,'831 Neverland Street','Baltimore','MD',21224),(2,'123 Tommorowland Road','Baltimore','MD',21224),(3,'321 Whatever Avenue','Baltimore','MD',21224),(4,'9999 Tilapia Street','Baltimore','MD',21224),(5,'5465 French Road','Baltimore','MD',21224),(6,'5867 Underhill Lane','Franklin','MD',12367),(7,'5867 Underhill Lane','Franklin','MD',12367),(8,'5867 Underhill Lane','Franklin','MD',12367),(9,'5867 Underhill Lane','Franklin','MD',12367),(10,'5867 Underhill Lane','Somewere','VA',11834);
 /*!40000 ALTER TABLE `shipping_address` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-13 12:19:53
+-- Dump completed on 2015-08-13 12:59:53
