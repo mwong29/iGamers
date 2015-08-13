@@ -1,30 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	 version="3.1">
-    
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.controllers.Login</servlet-class>
     </servlet>
-        
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
-<!--    
     <servlet>
-        <servlet-name>ShoppingCart</servlet-name>
-        <servlet-class>com.controllers.ShoppingCart</servlet-class>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>com.controllers.Cart</servlet-class>
     </servlet>
-
     <servlet-mapping>
-        <servlet-name>ShoppingCart</servlet-name>
-        <url-pattern>/ShoppingCart</url-pattern>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/Cart</url-pattern>
     </servlet-mapping>
--->    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>secure</web-resource-name>
@@ -38,15 +29,12 @@
             <transport-guarantee> CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <welcome-file-list>
         <welcome-file>/WEB-INF/index.jsp</welcome-file>
-        
     </welcome-file-list>
 </web-app>
