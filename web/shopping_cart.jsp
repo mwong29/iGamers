@@ -37,9 +37,7 @@
             if (!shopping_cart.isEmpty())
             {  
         %>
-                <form action="PayController" method="post">
-                    <input type="submit" value="Confirm">
-                </form>
+                <button type="reset" onclick="location.href='payment.jsp'">Buy Now</button>
         <%
             }
         %>
