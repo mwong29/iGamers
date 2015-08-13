@@ -7,6 +7,7 @@ package com.testdb;
 
 import com.beans.Address;
 import com.beans.CreditCardInfo;
+import com.beans.Product;
 import com.beans.UserLogin;
 import com.beans.UserProfile;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -63,6 +65,23 @@ public class testDbCode {
             UserProfile userProfile2 = new UserProfile(userLogin6, "Bob", "Thorton", billingAddress2, shippingAddress2, creditCardInfo2, "bobbob@gmail.com");
             boolean resultUpdateProfile = dbUtil.updateProfile(userProfile2);
             System.out.println(resultUpdateProfile);
+            
+            ArrayList<Product> productsList = dbUtil.getProductsByCategory("XBOX ONE");
+            
+            ArrayList<Product> productsList2 = dbUtil.getXAmountProductsByCategory("XBOX ONE", 3);
+            
+            ArrayList<Product> productsList3 = dbUtil.getAllCategoriesProducts();
+        
+            ArrayList<Product> productsList4 = dbUtil.getXAmountAllCategoriesProducts(2);
+            
+            Product product1 = dbUtil.getProductByTitle("Destiny");
+            
+            Product product2 = dbUtil.getProductByTitleAndCategory("Destiny", "PS4");
+            
+            Product product3 = dbUtil.getProductByProductCode(10);
+            
+            
+            System.out.println("DONE TEST");
         } catch (SQLException e) {
             for (Throwable t : e) {
                 t.printStackTrace();

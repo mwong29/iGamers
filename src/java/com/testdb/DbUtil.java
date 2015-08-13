@@ -7,6 +7,7 @@ package com.testdb;
 
 import com.beans.Address;
 import com.beans.CreditCardInfo;
+import com.beans.Product;
 import com.beans.UserLogin;
 import com.beans.UserProfile;
 import java.sql.Connection;
@@ -16,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -341,5 +344,144 @@ public class DbUtil {
         ps.setInt(6, idCreditCardInfo);
         ps.executeUpdate();
         return true;
+    }
+    
+    public ArrayList<Product> getProductsByCategory(String categoryDesired) throws SQLException{
+        ArrayList<Product> productsList = new ArrayList();
+        String preparedQuery = "SELECT * FROM products WHERE category=?;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery);
+        ps.setString(1, categoryDesired); 
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                Integer productCode = result.getInt("product_code");
+                String description = result.getString("description");
+                Double price = result.getDouble("price");
+                String specialDeals = result.getString("special_deals");
+                String imagePath = result.getString("image_path");
+                String category = result.getString("category");
+                String title = result.getString("title");
+            Product product = new Product(productCode, description, price, specialDeals,imagePath,category,title);
+            productsList.add(product);
+        }
+        return productsList;
+    }
+    
+    public ArrayList<Product> getXAmountProductsByCategory(String categoryDesired, int xAmount) throws SQLException{
+        ArrayList<Product> productsList = new ArrayList();
+        String preparedQuery = "SELECT * FROM products WHERE category=? LIMIT ?;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery);
+        ps.setString(1, categoryDesired); 
+        ps.setInt(2, xAmount); 
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                Integer productCode = result.getInt("product_code");
+                String description = result.getString("description");
+                Double price = result.getDouble("price");
+                String specialDeals = result.getString("special_deals");
+                String imagePath = result.getString("image_path");
+                String category = result.getString("category");
+                String title = result.getString("title");
+            Product product = new Product(productCode, description, price, specialDeals,imagePath,category,title);
+            productsList.add(product);
+        }
+        return productsList;
+    }
+    
+    public ArrayList<Product> getAllCategoriesProducts() throws SQLException{
+        ArrayList<Product> productsList = new ArrayList();
+        String preparedQuery = "SELECT * FROM products;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery);
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                Integer productCode = result.getInt("product_code");
+                String description = result.getString("description");
+                Double price = result.getDouble("price");
+                String specialDeals = result.getString("special_deals");
+                String imagePath = result.getString("image_path");
+                String category = result.getString("category");
+                String title = result.getString("title");
+            Product product = new Product(productCode, description, price, specialDeals,imagePath,category,title);
+            productsList.add(product);
+        }
+        return productsList;
+    }
+    
+    public ArrayList<Product> getXAmountAllCategoriesProducts(int xAmount) throws SQLException{
+        ArrayList<Product> productsList = new ArrayList();
+        String preparedQuery = "SELECT * FROM products LIMIT ?;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery);
+        ps.setInt(1, xAmount); 
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                Integer productCode = result.getInt("product_code");
+                String description = result.getString("description");
+                Double price = result.getDouble("price");
+                String specialDeals = result.getString("special_deals");
+                String imagePath = result.getString("image_path");
+                String category = result.getString("category");
+                String title = result.getString("title");
+            Product product = new Product(productCode, description, price, specialDeals,imagePath,category,title);
+            productsList.add(product);
+        }
+        return productsList;
+    }
+    
+    public Product getProductByTitle(String titleDesired) throws SQLException{
+        Product product = null;
+        String preparedQuery = "SELECT * FROM products where title=? LIMIT 1;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery);
+        ps.setString(1, titleDesired); 
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                Integer productCode = result.getInt("product_code");
+                String description = result.getString("description");
+                Double price = result.getDouble("price");
+                String specialDeals = result.getString("special_deals");
+                String imagePath = result.getString("image_path");
+                String category = result.getString("category");
+                String title = result.getString("title");
+            product = new Product(productCode, description, price, specialDeals,imagePath,category,title);
+            
+        }
+        return product;
+    }
+    
+    public Product getProductByTitleAndCategory(String titleDesired, String categoryDesired) throws SQLException{
+        Product product = null;
+        String preparedQuery = "SELECT * FROM products where title=? AND category=? LIMIT 1;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery);
+        ps.setString(1, titleDesired); 
+        ps.setString(2, categoryDesired);
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                Integer productCode = result.getInt("product_code");
+                String description = result.getString("description");
+                Double price = result.getDouble("price");
+                String specialDeals = result.getString("special_deals");
+                String imagePath = result.getString("image_path");
+                String category = result.getString("category");
+                String title = result.getString("title");
+            product = new Product(productCode, description, price, specialDeals,imagePath,category,title);
+            }
+        return product;
+    }
+    
+    public Product getProductByProductCode(Integer productCodeDesired) throws SQLException{
+        Product product = null;
+        String preparedQuery = "SELECT * FROM products where product_code=? LIMIT 1;"; 
+        PreparedStatement ps = connection.prepareStatement(preparedQuery);
+        ps.setInt(1, productCodeDesired); 
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+                Integer productCode = result.getInt("product_code");
+                String description = result.getString("description");
+                Double price = result.getDouble("price");
+                String specialDeals = result.getString("special_deals");
+                String imagePath = result.getString("image_path");
+                String category = result.getString("category");
+                String title = result.getString("title");
+            product = new Product(productCode, description, price, specialDeals,imagePath,category,title);
+        }
+        return product;
     }
 }
