@@ -25,7 +25,7 @@ public class DbUtil {
     //This  needs to be called before you call any function which interacs with the database.
 
     public void connectToDb() throws SQLException {
-        String dbURL = "jdbc:mysql://localhost:3306/iGamers";
+        String dbURL = "jdbc:mysql://localhost:3306/igamers";
         String username = "root";
         String password = "iGamers";
         connection = DriverManager.getConnection(dbURL, username, password);
