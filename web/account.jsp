@@ -48,5 +48,9 @@
                 </tr>
             </table>
         </form>
+        <br/>
+        <form action="SignOutController" method="GET">
+            <input name="sign_out" value="Sign Out" type="submit">
+        </form>
     </body>
 </html>
