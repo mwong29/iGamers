@@ -74,7 +74,16 @@ public class Account extends HttpServlet {
             response.sendRedirect("login.jsp");
             //request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("account.jsp").forward(request, response);
+            if (user.getIsValidLogin() == false)
+            {
+                session.removeAttribute("user");
+                response.sendRedirect("login.jsp");
+            }
+            else
+            {
+                request.getRequestDispatcher("account.jsp").forward(request, response);
+            }
+            
         }
     }
 

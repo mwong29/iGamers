@@ -33,7 +33,7 @@
         <span class="my_account_title">
             <a href="/iGamers/Account">
             <%
-                if (user_for_header.getUsername() == "")
+                if (user_for_header.getUsername() == "" || user_for_header.getIsValidLogin() == false)
                 {
                     out.println("My Account");
                 }
