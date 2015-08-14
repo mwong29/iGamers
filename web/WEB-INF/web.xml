@@ -29,11 +29,11 @@
             <web-resource-name>secure</web-resource-name>
             <url-pattern>/payment.jsp</url-pattern>
         </web-resource-collection>
-        <web-resource-collection>
+<!--        <web-resource-collection>
             <web-resource-name>secure</web-resource-name>
             <url-pattern>/checkout_validation.jsp</url-pattern>
         </web-resource-collection>
-        <user-data-constraint>
+-->        <user-data-constraint>
             <transport-guarantee> CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
