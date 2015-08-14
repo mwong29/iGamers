@@ -18,7 +18,7 @@ public final class Confirm
 
     double total_payment;
     String email;
-    ArrayList<String> shopping_cart;
+    ArrayList<Product> shopping_cart;
     
     public Confirm()
     {
@@ -28,7 +28,7 @@ public final class Confirm
         shopping_cart = null;
     }
     
-    public Confirm(double total_payment, String email, ArrayList<String> shopping_cart)
+    public Confirm(double total_payment, String email, ArrayList<Product> shopping_cart)
     {
         this.total_payment = total_payment;
         this.email = email;
@@ -57,14 +57,15 @@ public final class Confirm
             "</tr>";
                 
         //System.out.println(results.getName());
-        for (String game : this.shopping_cart)
+        for (Product game : this.shopping_cart)
         {
+            this.total_payment += game.getPrice();
             html += ("<tr>");
             html+=("<td>");
-            html+=(game);
+            html+=(game.getTitle());
             html+=("</td>");
             html+=("<td>");
-            html+=(50.0);
+            html+=(game.getPrice());
             html+=("</td>");
             html+=("<td>");
             html+=("</td>");

@@ -4,6 +4,7 @@
     Author     : Maurice Wong
 --%>
 
+<%@page import="com.beans.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,13 +17,13 @@
     <body>
         <h1>Payment</h1>
         <%
-            ArrayList<String> shopping_cart = (ArrayList) session.getAttribute("shopping_cart");
+            ArrayList<Product> shopping_cart = (ArrayList) session.getAttribute("shopping_cart");
             
             double total_cost = 0.0;
-            for (String x : shopping_cart)
+            for (Product x : shopping_cart)
             {
-                total_cost += 50;
-                out.println(x + " - $50");
+                total_cost += x.getPrice();
+                out.println(x.getTitle() + " - $" + x.getPrice());
                 out.println("<br/>");
             }
             

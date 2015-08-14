@@ -6,10 +6,15 @@ package com.controllers;
  * and open the template in the editor.
  */
 
+import com.beans.Product;
 import com.beans.UserLogin;
+import com.testdb.DbUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,9 +60,25 @@ public class Cart extends HttpServlet {
         String selected_game = request.getParameter("game");
         String remove_game = request.getParameter("remove_game");
         
-        ArrayList<String> shopping_cart = (ArrayList) session.getAttribute("shopping_cart");
+        ArrayList<Product> shopping_cart = (ArrayList) session.getAttribute("shopping_cart");
         
-        
+        DbUtil dbUtil = new DbUtil();
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+        }
+        catch (ClassNotFoundException ex)
+        {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try
+        {
+            dbUtil.connectToDb();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         //Initialize shopping_cart if it does not exist in session variable
@@ -68,12 +89,34 @@ public class Cart extends HttpServlet {
         
         if (selected_game != null)
         {
-            shopping_cart.add(selected_game);
+            Product game = null;
+            try {
+                game = dbUtil.getProductByTitle(selected_game.replaceAll("(\\r|\\n)", ""));
+            }
+            catch (SQLException ex) {
+                Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            shopping_cart.add(game);
         }
         
         if (remove_game != null)
         {
-            shopping_cart.remove(remove_game);
+            Product game = null;
+            try {
+                game = dbUtil.getProductByTitle(remove_game.replaceAll("(\\r|\\n)", ""));
+            }
+            catch (SQLException ex) {
+                Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            for (int counter = 0; counter < shopping_cart.size(); counter++)
+            {
+                if (shopping_cart.get(counter).getTitle().equals(remove_game))
+                {
+                    shopping_cart.remove(counter);
+                    break;
+                }
+            }          
         }
         
             
