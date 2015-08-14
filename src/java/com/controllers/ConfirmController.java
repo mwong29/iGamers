@@ -8,6 +8,7 @@ package com.controllers;
 import com.beans.Confirm;
 import com.beans.MailUtilGmail;
 import com.beans.PaymentBean;
+import com.beans.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class ConfirmController extends HttpServlet
         String creditcardnum = request.getParameter("creditcardnum");
         String creditcardexp = request.getParameter("creditcardexp");
         double total_payment = Double.parseDouble(request.getParameter("total_cost"));
-        ArrayList<String> shopping_cart = (ArrayList) session.getAttribute("shopping_cart");
+        ArrayList<Product> shopping_cart = (ArrayList) session.getAttribute("shopping_cart");
         
         PaymentBean payment = new PaymentBean(cctype, creditcardnum, creditcardexp, total_payment);
         session.setAttribute("payment", payment);
@@ -69,16 +70,6 @@ public class ConfirmController extends HttpServlet
         }
         else
         {
-//            if ((results.getName().equals("")) || (results.getEmail().equals("")) || (results.getCourses().length == 0))
-//            {
-//                url = "/mod5web/index.jsp";
-//                
-//                RequestDispatcher dispatcher = 
-//                    getServletContext().getRequestDispatcher(url);
-//                dispatcher.forward(request, response);
-//            }
-//            else
-//            {
                 Confirm confirm = new Confirm(total_payment, email, shopping_cart);
                 MailUtilGmail.sendMail(email, "iGamers",
                     "iGamers Payment Confirmed", confirm.getHtml_body(), true);
@@ -88,7 +79,6 @@ public class ConfirmController extends HttpServlet
                 RequestDispatcher dispatcher = 
                     getServletContext().getRequestDispatcher(url);
                 dispatcher.forward(request, response);
-//            }
         }
     }
 
