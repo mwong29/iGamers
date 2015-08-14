@@ -5,7 +5,9 @@
  */
 package com.controllers;
 
+import com.beans.Address;
 import com.beans.UserLogin;
+import com.beans.UserProfile;
 import com.testdb.DbUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -86,9 +88,11 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         String goLogin = request.getParameter("login");
         String account = request.getParameter("account");
-                        
+        String update = request.getParameter("update");
+            
         UserLogin user = new UserLogin(username, password);
-        
+        UserProfile profile = (UserProfile) session.getAttribute("prof");
+        DbUtil dbUtil = new DbUtil();
         /**
          * From LOGIN.JSP
          */
@@ -109,11 +113,22 @@ public class Login extends HttpServlet {
             } else if (goLogin.equals("Submit")) {
                 // Validate if user info matches DB values
                 try {
-                    DbUtil dbUtil = new DbUtil();
                     Class.forName("com.mysql.jdbc.Driver");
                     dbUtil.connectToDb();
                     Boolean isValidLogin = dbUtil.validateLogin(user);
                     user.setIsValidLogin(isValidLogin);
+                } catch (SQLException e) {
+                    for (Throwable t : e) {
+                        t.printStackTrace();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    dbUtil.connectToDb();
+                    profile = dbUtil.selectUserProfileByUserLogin(user);
                 } catch (SQLException e) {
                     for (Throwable t : e) {
                         t.printStackTrace();
@@ -130,6 +145,7 @@ public class Login extends HttpServlet {
                 } else {
                     // Successful login
                     session.setAttribute("user", user);
+                    session.setAttribute("prof", profile);
                     request.getRequestDispatcher("account.jsp").forward(request, response);
                 }
             }
@@ -150,6 +166,60 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
             } else if (account.equals("Continue Shopping")){
                 request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            }
+        } else if (update != null) {
+            if (update.equals("Update Account")) {
+                user = (UserLogin) session.getAttribute("user");
+                profile = (UserProfile) session.getAttribute("prof");
+                
+                Address billingAddr = new Address();
+                Address shippingAddr = new Address();
+                
+                String first = request.getParameter("first name");
+                String last = request.getParameter("last name");
+                String billStreet = request.getParameter("bill street");
+                String billCity = request.getParameter("bill city");
+                String billState = request.getParameter("bill state");
+                String billZip = request.getParameter("bill zip");
+                String shipStreet = request.getParameter("ship street");
+                String shipCity = request.getParameter("ship city");
+                String shipState = request.getParameter("ship state");
+                String shipZip = request.getParameter("ship zip");
+                String email = request.getParameter("email");
+                
+                profile.setFirstName(first);
+                profile.setLastName(last);
+                billingAddr.setStreetAddress(billStreet);
+                billingAddr.setCity(billCity);
+                billingAddr.setState(billState);
+                try {
+                    billingAddr.setZip(Integer.parseInt(billZip));
+                    shippingAddr.setZip(Integer.parseInt(shipZip));
+                } catch (NumberFormatException nfe) {
+                    nfe.getMessage();
+                }
+                shippingAddr.setStreetAddress(shipStreet);
+                shippingAddr.setCity(shipCity);
+                shippingAddr.setState(shipState);
+                profile.setBillingAddress(billingAddr);
+                profile.setShippingAddress(shippingAddr);
+                
+                // update DB
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    dbUtil.connectToDb();
+                    Boolean prof = dbUtil.updateProfile(profile);
+                } catch (SQLException e) {
+                    for (Throwable t : e) {
+                        t.printStackTrace();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                
+                session.setAttribute("user", user);
+                session.setAttribute("prof", profile);
+                request.getRequestDispatcher("account.jsp").forward(request, response);
             }
         }
     }
