@@ -55,11 +55,11 @@ public final class Confirm
               "<td align='center'><strong>Games</strong></td>"+
               "<td align='center'><strong>Cost</strong></td>"+
             "</tr>";
-                
+                System.out.println(total_payment);
         //System.out.println(results.getName());
         for (Product game : this.shopping_cart)
         {
-            this.total_payment += game.getPrice();
+            //this.total_payment += game.getPrice();
             html += ("<tr>");
             html+=("<td>");
             html+=(game.getTitle());
