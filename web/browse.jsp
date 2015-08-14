@@ -4,6 +4,8 @@
     Author     : Maurice Wong
 --%>
 
+<%@page import="com.testdb.DbUtil"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.beans.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,6 +17,9 @@
     </head>
     <body>
         <% 
+            DbUtil dbUtil = new DbUtil();
+            Class.forName("com.mysql.jdbc.Driver");
+            dbUtil.connectToDb();
             String selected_console = (String) session.getAttribute("console");
             out.println(selected_console + " Games:<br /><br />");
             
@@ -22,40 +27,64 @@
         <form method="get" action="/iGamers/Cart">
         <%
             if (selected_console.equals("PS4")) {
+                ArrayList<Product> games = dbUtil.getProductsByCategory("PS4");
         %>
         
             <select name="game" multiple="multiple" size="3" style="width: 200px;">
-                <option value="PS4 Game1">PS4 Game1</option>
-                <option value="PS4 Game2">PS4 Game2</option>
-                <option value="PS4 Game3">PS4 Game3</option>
-                <option value="PS4 Game4">PS4 Game4</option>
+                <%
+                    for (Product x : games)
+                    {
+                %>
+                        <option value="<% out.println(x.getTitle());  %>"><% out.println(x.getTitle());  %></option>
+                        
+                <%
+                    }
+                %>
             </select>
         <%
             } else if (selected_console.equals("Xbox One")) {
+                ArrayList<Product> games = dbUtil.getProductsByCategory("XBOX ONE");
         %>
             <select name="game" multiple="multiple" size="3" style="width: 200px;">
-                <option value="Xbox One Game1">Xbox One Game1</option>
-                <option value="Xbox One Game2">Xbox One Game2</option>
-                <option value="Xbox One Game3">Xbox One Game3</option>
-                <option value="Xbox One Game4">Xbox One Game4</option>
+                <%
+                    for (Product x : games)
+                    {
+                %>
+                        <option value="<% out.println(x.getTitle());  %>"><% out.println(x.getTitle());  %></option>
+                        
+                <%
+                    }
+                %>
             </select>
         <%
             } else if (selected_console.equals("Wii U")) {
+                ArrayList<Product> games = dbUtil.getProductsByCategory("Wii U");
         %>
             <select name="game" multiple="multiple" size="3" style="width: 200px;">
-                <option value="Wii U Game1">Wii U Game1</option>
-                <option value="Wii U Game2">Wii U Game2</option>
-                <option value="Wii U Game3">Wii U Game3</option>
-                <option value="Wii U Game4">Wii U Game4</option>
+                <%
+                    for (Product x : games)
+                    {
+                %>
+                        <option value="<% out.println(x.getTitle());  %>"><% out.println(x.getTitle());  %></option>
+                        
+                <%
+                    }
+                %>
             </select>
         <%
             } else if (selected_console.equals("PC")) {
+                ArrayList<Product> games = dbUtil.getProductsByCategory("PC");
         %>
             <select name="game" multiple="multiple" size="3" style="width: 200px;">
-                <option value="PC Game1">PC Game1</option>
-                <option value="PC Game2">PC Game2</option>
-                <option value="PC Game3">PC Game3</option>
-                <option value="PC Game4">PC Game4</option>
+                <%
+                    for (Product x : games)
+                    {
+                %>
+                        <option value="<% out.println(x.getTitle());  %>"><% out.println(x.getTitle());  %></option>
+                        
+                <%
+                    }
+                %>
             </select>
         <%
             }
