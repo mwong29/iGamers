@@ -180,6 +180,7 @@ public class DbUtil {
         ps.setString(1, userLogin.getUsername());
         ResultSet result = ps.executeQuery();
         
+        boolean foundUser = false;
         while (result.next()) {
                 firstName = result.getString("first_name");
                 lastName = result.getString("last_name");
@@ -187,8 +188,10 @@ public class DbUtil {
                 idBillingAddress = result.getInt("idbilling_address");
                 idShippingAddress = result.getInt("idshipping_address");
                 idCreditCardInfo = result.getInt("idcredit_card_info");
+                foundUser=true;
         }
-        
+     
+        if(foundUser){
         String preparedQuery2 = "SELECT * FROM billing_address WHERE idbilling_address=?;"; 
         PreparedStatement ps2 = connection.prepareStatement(preparedQuery2);
         ps2.setInt(1, idBillingAddress); 
@@ -227,7 +230,7 @@ public class DbUtil {
         }
         
         userProfile = new UserProfile(userLogin, firstName, lastName, billingAddress, shippingAddress, creditCardInfo, emailAddress);
-        
+    }
         return userProfile;
     }
     

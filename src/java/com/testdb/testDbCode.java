@@ -56,8 +56,21 @@ public class testDbCode {
             System.out.println("createProfileSuccess = " + createProfileSuccess);
             
             UserProfile userProfile5 = dbUtil.selectUserProfileByUserLogin(userLogin3);
-            System.out.println("selected user profile where username = " + userLogin3.getUsername() + "and it has first name = " + userProfile5.getFirstName());
-        
+            if(userProfile5!=null){
+                System.out.println("selected user profile where username = " + userLogin3.getUsername() + "and it has first name = " + userProfile5.getFirstName());
+            } else{
+                System.out.println("User not found");
+            }
+            
+            UserLogin userLogin4 = new UserLogin("BOBThor2", "BobThorn");
+            UserProfile userProfile6 = dbUtil.selectUserProfileByUserLogin(userLogin4);
+            if(userProfile6!=null){
+                System.out.println("selected user profile where username = " + userLogin4.getUsername() + "and it has first name = " + userProfile5.getFirstName());
+            } else{
+                System.out.println("User not found");
+            }
+            
+            
             Address billingAddress2 = new Address("1000 Underhill Lane", "Franklin", "MD", 12367);
             Address shippingAddress2 = new Address("5867 Underhill Lane", "Somewere", "VA", 11834);
             CreditCardInfo creditCardInfo2 = new CreditCardInfo("MasterCard", "7474747474747474", "Bob Thorton", "06/18/2017", 4567);
