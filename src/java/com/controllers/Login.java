@@ -97,7 +97,7 @@ public class Login extends HttpServlet {
         String shipCity = request.getParameter("ship city");
         String shipState = request.getParameter("ship state");
         String shipZip = request.getParameter("ship zip");
-        String ccCompany = request.getParameter("company");
+        String ccCompany = request.getParameter("cc company");
         String ccNumber = request.getParameter("cc number");
         String ccName = request.getParameter("cc name");
         String ccExpDate = request.getParameter("cc expiration");
