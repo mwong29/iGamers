@@ -132,7 +132,7 @@ public class DbUtil {
         ps.setString(1, userProfile.getUserLogin().getUsername());
         ResultSet result = ps.executeQuery();
         while (result.next()) {
-                //if it exists return false which means the username already exists. 
+            //if it exists return false which means the username already exists. 
             //A JSP should probably show the error to the user saying that the usename already exists, pick another username
             if (result.getString(1).equals("1")) {
                 return false;
@@ -143,19 +143,23 @@ public class DbUtil {
         Integer idshipping_address = insertShippingAddress(userProfile.getShippingAddress());
         Integer idcredit_card_info = insertCreditCardInfo(userProfile.getCreditCardInfo());
 
-        String preparedQuery2 = "INSERT INTO user_profile (first_Name, last_name, username, password, idbilling_address, idshipping_address, idcredit_card_info, email_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-        PreparedStatement ps2 = connection.prepareStatement(preparedQuery2);
-        ps2.setString(1, userProfile.getFirstName());
-        ps2.setString(2, userProfile.getLastName());
-        ps2.setString(3, userProfile.getUserLogin().getUsername());
-        ps2.setString(4, userProfile.getUserLogin().getPassword());
-        ps2.setInt(5, idbilling_address);
-        ps2.setInt(6, idshipping_address);
-        ps2.setInt(7, idcredit_card_info);
-        ps2.setString(8, userProfile.getEmailAddress());
-        ps2.executeUpdate();
-
-        return true;
+        if (idcredit_card_info == 0) {
+            System.out.println("error inserting credit card info. There was a null value");
+            return false;
+        }else{
+            String preparedQuery2 = "INSERT INTO user_profile (first_Name, last_name, username, password, idbilling_address, idshipping_address, idcredit_card_info, email_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            PreparedStatement ps2 = connection.prepareStatement(preparedQuery2);
+            ps2.setString(1, userProfile.getFirstName());
+            ps2.setString(2, userProfile.getLastName());
+            ps2.setString(3, userProfile.getUserLogin().getUsername());
+            ps2.setString(4, userProfile.getUserLogin().getPassword());
+            ps2.setInt(5, idbilling_address);
+            ps2.setInt(6, idshipping_address);
+            ps2.setInt(7, idcredit_card_info);
+            ps2.setString(8, userProfile.getEmailAddress());
+            ps2.executeUpdate();
+            return true;
+        }
 
     }
 
@@ -283,28 +287,46 @@ public class DbUtil {
 
     private Integer insertCreditCardInfo(CreditCardInfo creditCardInfo) throws SQLException {
 
-        String preparedQuery = "INSERT INTO credit_card_info (company, number, name_on_card, expiration_date, cvv) VALUES (?, ?, ?, ?, ?);";
-        PreparedStatement ps = connection.prepareStatement(preparedQuery);
-        ps.setString(1, creditCardInfo.getCompany());
-        ps.setString(2, creditCardInfo.getNumber());
-        ps.setString(3, creditCardInfo.getNameOnCard());
-        ps.setString(4, creditCardInfo.getExpirationDate());
-        ps.setInt(5, creditCardInfo.getCvv());
-        ps.executeUpdate();
+        if (creditCardInfo.getCompany() == null) {
+            System.out.println("company for credit card null. NOT inserting credit card into database");
+            return 0;
+        } else if (creditCardInfo.getNumber() == null) {
+            System.out.println("number for credit card null. NOT inserting credit card into database");
+            return 0;
+        } else if (creditCardInfo.getNameOnCard() == null) {
+            System.out.println("name on card for credit card null. NOT inserting credit card into database");
+            return 0;
+        } else if (creditCardInfo.getExpirationDate() == null) {
+            System.out.println("expiration data on card for credit card null. NOT inserting credit card into database");
+            return 0;
+        } else if (creditCardInfo.getCvv() == 0) {
+            System.out.println("CVV data on card for credit card zero. NOT inserting credit card into database");
+            return 0;
+        } else {
 
-        String preparedSQL2 = "SELECT idcredit_card_info FROM credit_card_info WHERE company=? AND number=? AND name_on_card=? AND expiration_date=? AND cvv=? ORDER BY idcredit_card_info DESC LIMIT 1";
-        PreparedStatement ps2 = connection.prepareStatement(preparedSQL2);
-        ps2.setString(1, creditCardInfo.getCompany());
-        ps2.setString(2, creditCardInfo.getNumber());
-        ps2.setString(3, creditCardInfo.getNameOnCard());
-        ps2.setString(4, creditCardInfo.getExpirationDate());
-        ps2.setInt(5, creditCardInfo.getCvv());
-        Integer idcredit_card_info = null;
-        ResultSet result4 = ps2.executeQuery();
-        while (result4.next()) {
-            idcredit_card_info = result4.getInt("idcredit_card_info");
+            String preparedQuery = "INSERT INTO credit_card_info (company, number, name_on_card, expiration_date, cvv) VALUES (?, ?, ?, ?, ?);";
+            PreparedStatement ps = connection.prepareStatement(preparedQuery);
+            ps.setString(1, creditCardInfo.getCompany());
+            ps.setString(2, creditCardInfo.getNumber());
+            ps.setString(3, creditCardInfo.getNameOnCard());
+            ps.setString(4, creditCardInfo.getExpirationDate());
+            ps.setInt(5, creditCardInfo.getCvv());
+            ps.executeUpdate();
+
+            String preparedSQL2 = "SELECT idcredit_card_info FROM credit_card_info WHERE company=? AND number=? AND name_on_card=? AND expiration_date=? AND cvv=? ORDER BY idcredit_card_info DESC LIMIT 1";
+            PreparedStatement ps2 = connection.prepareStatement(preparedSQL2);
+            ps2.setString(1, creditCardInfo.getCompany());
+            ps2.setString(2, creditCardInfo.getNumber());
+            ps2.setString(3, creditCardInfo.getNameOnCard());
+            ps2.setString(4, creditCardInfo.getExpirationDate());
+            ps2.setInt(5, creditCardInfo.getCvv());
+            Integer idcredit_card_info = null;
+            ResultSet result4 = ps2.executeQuery();
+            while (result4.next()) {
+                idcredit_card_info = result4.getInt("idcredit_card_info");
+            }
+            return idcredit_card_info;
         }
-        return idcredit_card_info;
     }
 
     private boolean updateBillingAddress(Address address, Integer idBillingAddress) throws SQLException {
