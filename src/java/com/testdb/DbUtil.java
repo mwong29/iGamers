@@ -287,19 +287,19 @@ public class DbUtil {
 
     private Integer insertCreditCardInfo(CreditCardInfo creditCardInfo) throws SQLException {
 
-        if (creditCardInfo.getCompany() == null) {
+        if (creditCardInfo.getCompany() == null || "".equals(creditCardInfo.getCompany())) {
             System.out.println("company for credit card null. NOT inserting credit card into database");
             return 0;
-        } else if (creditCardInfo.getNumber() == null) {
+        } else if (creditCardInfo.getNumber() == null || "".equals(creditCardInfo.getNumber())) {
             System.out.println("number for credit card null. NOT inserting credit card into database");
             return 0;
-        } else if (creditCardInfo.getNameOnCard() == null) {
+        } else if (creditCardInfo.getNameOnCard() == null || "".equals(creditCardInfo.getNameOnCard())) {
             System.out.println("name on card for credit card null. NOT inserting credit card into database");
             return 0;
-        } else if (creditCardInfo.getExpirationDate() == null) {
+        } else if (creditCardInfo.getExpirationDate() == null || "".equals(creditCardInfo.getExpirationDate())) {
             System.out.println("expiration data on card for credit card null. NOT inserting credit card into database");
             return 0;
-        } else if (creditCardInfo.getCvv() == 0) {
+        } else if (creditCardInfo.getCvv() == 0 || "".equals(creditCardInfo.getCvv())) {
             System.out.println("CVV data on card for credit card zero. NOT inserting credit card into database");
             return 0;
         } else {
