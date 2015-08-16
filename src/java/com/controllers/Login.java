@@ -6,6 +6,7 @@
 package com.controllers;
 
 import com.beans.Address;
+import com.beans.CreditCardInfo;
 import com.beans.UserLogin;
 import com.beans.UserProfile;
 import com.testdb.DbUtil;
@@ -86,10 +87,28 @@ public class Login extends HttpServlet {
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String first = request.getParameter("first name");
+        String last = request.getParameter("last name");
+        String billStreet = request.getParameter("bill street");
+        String billCity = request.getParameter("bill city");
+        String billState = request.getParameter("bill state");
+        String billZip = request.getParameter("bill zip");
+        String shipStreet = request.getParameter("ship street");
+        String shipCity = request.getParameter("ship city");
+        String shipState = request.getParameter("ship state");
+        String shipZip = request.getParameter("ship zip");
+        String ccCompany = request.getParameter("company");
+        String ccNumber = request.getParameter("cc number");
+        String ccName = request.getParameter("cc name");
+        String ccExpDate = request.getParameter("cc expiration");
+        String ccCVV = request.getParameter("cc cvv");
+        String email = request.getParameter("email");
+        
         String goLogin = request.getParameter("login");
         String account = request.getParameter("account");
         String update = request.getParameter("update");
-            
+        String register = request.getParameter("register");
+        
         UserLogin user = new UserLogin(username, password);
         UserProfile profile = (UserProfile) session.getAttribute("prof");
         DbUtil dbUtil = new DbUtil();
@@ -98,19 +117,7 @@ public class Login extends HttpServlet {
          */
         
         if (username != null) {
-            if (goLogin.equals("Create New") || goLogin.equals("Reset")) {
-                // Validate if username already exists
-                    // if (user.getUsername().equals(//DB CALL//)) {
-
-                
-                        // TEST: isUserAlreadyExists = false;
-                        Boolean isValidCreate = true;
-                        user.setIsValidCreate(isValidCreate);
-                        // response.sendRedirect("login.jsp");
-                    // } else { // Create new user with user.getUsername() and user.getPassword() in DB }
-                session.setAttribute("user", user);
-                request.getRequestDispatcher("account.jsp").forward(request, response);
-            } else if (goLogin.equals("Submit")) {
+            if (goLogin.equals("Submit")) {
                 // Validate if user info matches DB values
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
@@ -148,6 +155,60 @@ public class Login extends HttpServlet {
                     session.setAttribute("prof", profile);
                     request.getRequestDispatcher("account.jsp").forward(request, response);
                 }
+            } else if (goLogin.equals("Create New")) {
+                response.sendRedirect("register_new.jsp");
+            } else {
+                if (register.equals("Register")) {
+                    // Validate if username already exists
+                        // if (user.getUsername().equals(//DB CALL//)) {
+
+                    int billZipNum = 0;
+                    int shipZipNum = 0;
+                    int ccCVVNum = 0;
+                    if (!billZip.equals("")) {
+                        try {
+                            billZipNum = Integer.parseInt(billZip);
+                        } catch (NumberFormatException nfe) {
+                            nfe.getMessage();
+                        }
+                    }
+                    if (!shipZip.equals("")) {
+                        try {
+                            shipZipNum = Integer.parseInt(shipZip);
+                        } catch (NumberFormatException nfe) {
+                            nfe.getMessage();
+                        }
+                    }
+                    if (!ccCVV.equals("")) {
+                        try {
+                            ccCVVNum = Integer.parseInt(ccCVV);
+                        } catch (NumberFormatException nfe) {
+                            nfe.getMessage();
+                        }
+                    }
+
+                    UserLogin newUserLogin = new UserLogin(username, password);
+                    Address newBilling = new Address(billStreet, billCity, billState, billZipNum);
+                    Address newShipping = new Address(shipStreet, shipCity, shipState, shipZipNum);
+                    CreditCardInfo newCC = new CreditCardInfo(ccCompany, ccNumber, ccName, ccExpDate, ccCVVNum);
+                    UserProfile newUserProfile = new UserProfile(newUserLogin, first, last, newBilling, newShipping, newCC, email);
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        dbUtil.connectToDb();
+                        Boolean isUserExists = dbUtil.createProfile(newUserProfile);
+                    } catch (SQLException e) {
+                        for (Throwable t : e) {
+                            t.printStackTrace();
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    session.setAttribute("user", user);
+                    session.setAttribute("prof", newUserProfile);
+                    request.getRequestDispatcher("account.jsp").forward(request, response);
+                }
             }
         } else if (account != null) {
         
@@ -174,7 +235,7 @@ public class Login extends HttpServlet {
                 
                 Address billingAddr = new Address();
                 Address shippingAddr = new Address();
-                
+            /*    
                 String first = request.getParameter("first name");
                 String last = request.getParameter("last name");
                 String billStreet = request.getParameter("bill street");
@@ -186,18 +247,12 @@ public class Login extends HttpServlet {
                 String shipState = request.getParameter("ship state");
                 String shipZip = request.getParameter("ship zip");
                 String email = request.getParameter("email");
-                
+            */    
                 profile.setFirstName(first);
                 profile.setLastName(last);
                 billingAddr.setStreetAddress(billStreet);
                 billingAddr.setCity(billCity);
                 billingAddr.setState(billState);
-                try {
-                    billingAddr.setZip(Integer.parseInt(billZip));
-                    shippingAddr.setZip(Integer.parseInt(shipZip));
-                } catch (NumberFormatException nfe) {
-                    nfe.getMessage();
-                }
                 shippingAddr.setStreetAddress(shipStreet);
                 shippingAddr.setCity(shipCity);
                 shippingAddr.setState(shipState);
