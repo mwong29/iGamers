@@ -37,44 +37,52 @@
 
 
         <form action="/iGamers/Login" method="POST">
-            <table width="350">
-                <colgroup>
-                    <col span="1" style="width:35%;">
-                    <col span="1" style="width:65%;">
-                </colgroup>
+            <div>
+                <table width="720px">
+                    <colgroup>
+                        <col span="1" style="width:40%;">
+                        <col span="1" style="width:60%;">
+                    </colgroup>
 <%
-                if (user.getIsAccountCurrent() == true) {
+        if (user.getIsAccountCurrent() == true) {
+%>
+                    <tr>
+                        <td style="padding-right:20px;">Username</td>
+                        <td style="padding-left:20px;"><input type="text" name="username" value="<%= user.getUsername() %>"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right:20px">Password</td>
+                        <td style="padding-left:20px;"><input type="password" name="password" value="<%= user.getPassword() %>"></td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <div style="width:720px;text-align:center;">
+                <input type="submit" name="login" value="Submit" />
+                <br/><br/>OR<br/><br/>
+                <input type="submit" name="login" value="Create New" />
+            </div>
+<%
+        } else {
 %>
                 <tr>
-                    <td style="text-align:right;">Username:  </td>
-                    <td><input type="text" name="username" value="<%= user.getUsername() %>"></td>
+                    <td style="padding-right:20px;">New Username:  </td>
+                    <td style="padding-left:20px;"><input type="text" name="username" value=""></td>
                 </tr>
                 <tr>
-                    <td style="text-align:right;">Password:  </td>
-                    <td><input type="password" name="password" value="<%= user.getPassword() %>"></td>
+                    <td style="padding-right:20px;">New Password:  </td>
+                    <td style="padding-left:20px;"><input type="password" name="password" value=""></td>
                 </tr>
-                <tr style="text-align:left;">
-                    <td></td>
-                    <td><input type="button" name="login" value="Create New" style="width:50">  <input type="submit" name="login" value="Submit" style="width:50"></td>
-                </tr>
-<%
-                } else {
-%>
-                <tr>
-                    <td style="text-align:right;">New Username:  </td>
-                    <td><input type="text" name="username" value=""></td>
-                </tr>
-                <tr>
-                    <td style="text-align:right;">New Password:  </td>
-                    <td><input type="password" name="password" value=""></td>
-                </tr>
-                <tr style="text-align:center;">
-                    <td><input type="submit" name="login" value="Reset" style="width:50"></td>
-                </tr>
-<%
-                }
-%>                
             </table>
+            </div>
+            <br/>
+            <div style="width:720px;text-align:center;">
+                <input type="submit" name="login" value="Reset" style="width:50">
+            </div>
+<%
+        }
+%>                
+           
         </form>
     </body>
 </html>
