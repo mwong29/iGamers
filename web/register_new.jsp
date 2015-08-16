@@ -136,7 +136,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Expiration Date</td>
+                        <td>Expiration Date (mm/yy)</td>
                         <td style="text-align:left;padding-left:20px"><input type="text" name="cc expiration" /></td>
                         <td></td>
                     </tr>

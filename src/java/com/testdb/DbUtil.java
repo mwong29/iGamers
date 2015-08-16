@@ -18,6 +18,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -286,7 +287,7 @@ public class DbUtil {
     }
 
     private Integer insertCreditCardInfo(CreditCardInfo creditCardInfo) throws SQLException {
-
+        
         if (creditCardInfo.getCompany() == null || "".equals(creditCardInfo.getCompany())) {
             System.out.println("company for credit card null. NOT inserting credit card into database");
             return 0;
@@ -301,6 +302,12 @@ public class DbUtil {
             return 0;
         } else if (creditCardInfo.getCvv() == 0 || "".equals(creditCardInfo.getCvv())) {
             System.out.println("CVV data on card for credit card zero. NOT inserting credit card into database");
+            return 0;
+        } else if (checkCreditCardNum(creditCardInfo.getNumber()) == false) {
+            System.out.println("Credit card does not meet character limit");
+            return 0;
+        } else if (validateExpireDate(creditCardInfo.getExpirationDate()) == false) {
+            System.out.println("Credit card expire date is incorrect format");
             return 0;
         } else {
 
@@ -507,4 +514,42 @@ public class DbUtil {
         }
         return product;
     }
+    
+    public boolean checkCreditCardNum(String creditCardNumber)
+    {
+        String card = creditCardNumber.trim();
+        String[] number_array = card.split("");
+        String[] valid_array = "0123456789".split("");
+        
+        if (number_array.length < 16 || number_array.length > 17)
+        {
+            //this.messages += "Check credit card number length<br/>";
+            return false;
+        }
+        
+        for(String x : number_array)
+        {
+            if (!Arrays.asList(valid_array).contains(x))
+            {
+                //this.messages += "Check credit card numbers <br/>";
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public boolean validateExpireDate(String creditCardExpirationDate) 
+    {
+        if (creditCardExpirationDate.matches("(?:0[1-9]|1[0-2])/[0-9]{2}"))
+        {
+            return true;
+        }
+        else
+        {
+            //this.messages += "Check expiration <br/>";
+            return false;
+        }
+    } 
 }
+
