@@ -116,7 +116,7 @@ public class Login extends HttpServlet {
          * From LOGIN.JSP
          */
         
-        if (username != null) {
+        if (username != null && goLogin != null) {
             if (goLogin.equals("Submit")) {
                 // Validate if user info matches DB values
                 try {
@@ -157,58 +157,58 @@ public class Login extends HttpServlet {
                 }
             } else if (goLogin.equals("Create New")) {
                 response.sendRedirect("register_new.jsp");
-            } else {
-                if (register.equals("Register")) {
-                    // Validate if username already exists
-                        // if (user.getUsername().equals(//DB CALL//)) {
+            }
+        } else if (username != null && register != null) {
+            if (register.equals("Register")) {
+                // Validate if username already exists
+                    // if (user.getUsername().equals(//DB CALL//)) {
 
-                    int billZipNum = 0;
-                    int shipZipNum = 0;
-                    int ccCVVNum = 0;
-                    if (!billZip.equals("")) {
-                        try {
-                            billZipNum = Integer.parseInt(billZip);
-                        } catch (NumberFormatException nfe) {
-                            nfe.getMessage();
-                        }
-                    }
-                    if (!shipZip.equals("")) {
-                        try {
-                            shipZipNum = Integer.parseInt(shipZip);
-                        } catch (NumberFormatException nfe) {
-                            nfe.getMessage();
-                        }
-                    }
-                    if (!ccCVV.equals("")) {
-                        try {
-                            ccCVVNum = Integer.parseInt(ccCVV);
-                        } catch (NumberFormatException nfe) {
-                            nfe.getMessage();
-                        }
-                    }
-
-                    UserLogin newUserLogin = new UserLogin(username, password);
-                    Address newBilling = new Address(billStreet, billCity, billState, billZipNum);
-                    Address newShipping = new Address(shipStreet, shipCity, shipState, shipZipNum);
-                    CreditCardInfo newCC = new CreditCardInfo(ccCompany, ccNumber, ccName, ccExpDate, ccCVVNum);
-                    UserProfile newUserProfile = new UserProfile(newUserLogin, first, last, newBilling, newShipping, newCC, email);
-
+                int billZipNum = 0;
+                int shipZipNum = 0;
+                int ccCVVNum = 0;
+                if (!billZip.equals("")) {
                     try {
-                        Class.forName("com.mysql.jdbc.Driver");
-                        dbUtil.connectToDb();
-                        Boolean isUserExists = dbUtil.createProfile(newUserProfile);
-                    } catch (SQLException e) {
-                        for (Throwable t : e) {
-                            t.printStackTrace();
-                        }
-                    } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
+                        billZipNum = Integer.parseInt(billZip);
+                    } catch (NumberFormatException nfe) {
+                        nfe.getMessage();
                     }
-
-                    session.setAttribute("user", user);
-                    session.setAttribute("prof", newUserProfile);
-                    request.getRequestDispatcher("account.jsp").forward(request, response);
                 }
+                if (!shipZip.equals("")) {
+                    try {
+                        shipZipNum = Integer.parseInt(shipZip);
+                    } catch (NumberFormatException nfe) {
+                        nfe.getMessage();
+                    }
+                }
+                if (!ccCVV.equals("")) {
+                    try {
+                        ccCVVNum = Integer.parseInt(ccCVV);
+                    } catch (NumberFormatException nfe) {
+                        nfe.getMessage();
+                    }
+                }
+
+                UserLogin newUserLogin = new UserLogin(username, password);
+                Address newBilling = new Address(billStreet, billCity, billState, billZipNum);
+                Address newShipping = new Address(shipStreet, shipCity, shipState, shipZipNum);
+                CreditCardInfo newCC = new CreditCardInfo(ccCompany, ccNumber, ccName, ccExpDate, ccCVVNum);
+                UserProfile newUserProfile = new UserProfile(newUserLogin, first, last, newBilling, newShipping, newCC, email);
+
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    dbUtil.connectToDb();
+                    Boolean isUserExists = dbUtil.createProfile(newUserProfile);
+                } catch (SQLException e) {
+                    for (Throwable t : e) {
+                        t.printStackTrace();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+
+                session.setAttribute("user", user);
+                session.setAttribute("prof", newUserProfile);
+                request.getRequestDispatcher("account.jsp").forward(request, response);
             }
         } else if (account != null) {
         
