@@ -96,6 +96,30 @@ public class DbUtil {
         ps1.executeUpdate();
         return true;
     }
+    
+    //This function changes a users password
+    //returns true if the login exists and it successfully changes the password
+    //return false if the login does not exist
+    public boolean resetPassword(UserProfile userProfile, String newPassword) throws SQLException {
+        String preparedSQL = "SELECT EXISTS(SELECT 1 FROM user_profile WHERE username=?)";
+        PreparedStatement ps = connection.prepareStatement(preparedSQL);
+        ps.setString(1, userProfile.getUserLogin().getUsername());
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            //if it exists return false which means the username doesn't exist. 
+            if (result.getString(1).equals("0")) {
+                return false;
+            }
+        }
+        
+        String preparedQuery3 = "UPDATE user_profile SET password=? WHERE username=?;";
+        PreparedStatement ps3 = connection.prepareStatement(preparedQuery3);
+        ps3.setString(1, newPassword);
+        ps3.setString(2, userProfile.getUserLogin().getUsername());
+        ps3.executeUpdate();
+        return true;
+
+    }
 
     //This function creates a user profile
     //returns true if the login exists

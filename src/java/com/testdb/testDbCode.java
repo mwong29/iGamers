@@ -94,6 +94,11 @@ public class testDbCode {
             Product product3 = dbUtil.getProductByProductCode(10);
             
             
+            UserLogin userLogin9 = new UserLogin("BenBiggie", "Tux");
+            userProfile2.setUserLogin(userLogin9);
+            boolean resetPassBool = dbUtil.resetPassword(userProfile2, "Lux");
+            System.out.println("reset password test = " + resetPassBool );
+            
             System.out.println("DONE TEST");
         } catch (SQLException e) {
             for (Throwable t : e) {
