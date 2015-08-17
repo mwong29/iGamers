@@ -78,8 +78,26 @@ public class DbUtil {
         }
         return false;
     }
+    
+    public boolean updateUserLogin(UserLogin oldUser, UserLogin newUser) throws SQLException {
+        String preparedSQL = "SELECT EXISTS(SELECT 1 FROM user_profile WHERE username=?)";
+        PreparedStatement ps = connection.prepareStatement(preparedSQL);
+        ps.setString(1, oldUser.getUsername());
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            //if it exists return false which means the username doesn't exist. 
+            if (result.getString(1).equals("0")) {
+                return false;
+            }
+        }
+        String preparedQuery = "UPDATE user_profile SET password=? WHERE username=?;";
+        PreparedStatement ps1 = connection.prepareStatement(preparedQuery);
+        ps1.setString(2, newUser.getPassword());
+        ps1.executeUpdate();
+        return true;
+    }
 
-    //This function creates a uer profile
+    //This function creates a user profile
     //returns true if the login exists
     //return false if the login does not exist
     public boolean updateProfile(UserProfile userProfile) throws SQLException {
@@ -335,7 +353,7 @@ public class DbUtil {
             return idcredit_card_info;
         }
     }
-
+    
     private boolean updateBillingAddress(Address address, Integer idBillingAddress) throws SQLException {
 
         String preparedQuery = "UPDATE billing_address SET street_address=?, city=?, state=?, zip=? WHERE idbilling_address=?;";
