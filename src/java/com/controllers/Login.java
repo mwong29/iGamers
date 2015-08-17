@@ -216,11 +216,37 @@ public class Login extends HttpServlet {
          * From ACCOUNT.JSP
          */
 
-            if (account.equals("Reset Username/Password")) {
+            if (account.equals("Reset Password")) {
                 user = (UserLogin) session.getAttribute("user");
-                user.setIsAccountCurrent(false);
+                profile = (UserProfile) session.getAttribute("prof");
+                
+                String newPassword = request.getParameter("password");
+                
+                UserLogin testLogin = user;
+                UserProfile testProfile = profile;
+                testLogin.setPassword(newPassword);
+                testProfile.setUserLogin(testLogin);
+                // update DB & check if valid
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    dbUtil.connectToDb();
+                    boolean resultUpdateProfile = dbUtil.updateUserLogin(user, testLogin);
+                    System.out.println(resultUpdateProfile);
+                    if (resultUpdateProfile == true) {
+                        user.setPassword(newPassword);
+                        profile.setUserLogin(user);
+                    }
+                } catch (SQLException e) {
+                    for (Throwable t : e) {
+                        t.printStackTrace();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                
                 session.setAttribute("user", user);
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                session.setAttribute("prof", profile);
+                request.getRequestDispatcher("account.jsp").forward(request, response);
                 // DB - create new user in DB
                 // DB - remove old user credentials from DB
             } else if (account.equals("Go to Shopping Cart")) {
@@ -235,27 +261,35 @@ public class Login extends HttpServlet {
                 
                 Address billingAddr = new Address();
                 Address shippingAddr = new Address();
-            /*    
-                String first = request.getParameter("first name");
-                String last = request.getParameter("last name");
-                String billStreet = request.getParameter("bill street");
-                String billCity = request.getParameter("bill city");
-                String billState = request.getParameter("bill state");
-                String billZip = request.getParameter("bill zip");
-                String shipStreet = request.getParameter("ship street");
-                String shipCity = request.getParameter("ship city");
-                String shipState = request.getParameter("ship state");
-                String shipZip = request.getParameter("ship zip");
-                String email = request.getParameter("email");
-            */    
+            
+                int billZipNum = 0;
+                int shipZipNum = 0;
+                
+                if (!billZip.equals("")) {
+                    try {
+                        billZipNum = Integer.parseInt(billZip);
+                    } catch (NumberFormatException nfe) {
+                        nfe.getMessage();
+                    }
+                }
+                if (!shipZip.equals("")) {
+                    try {
+                        shipZipNum = Integer.parseInt(shipZip);
+                    } catch (NumberFormatException nfe) {
+                        nfe.getMessage();
+                    }
+                }
+                
                 profile.setFirstName(first);
                 profile.setLastName(last);
                 billingAddr.setStreetAddress(billStreet);
                 billingAddr.setCity(billCity);
                 billingAddr.setState(billState);
+                billingAddr.setZip(billZipNum);
                 shippingAddr.setStreetAddress(shipStreet);
                 shippingAddr.setCity(shipCity);
                 shippingAddr.setState(shipState);
+                shippingAddr.setZip(shipZipNum);
                 profile.setBillingAddress(billingAddr);
                 profile.setShippingAddress(shippingAddr);
                 
