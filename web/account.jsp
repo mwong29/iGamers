@@ -60,7 +60,7 @@
             </div>
             <br/>
             <div style="width:400px;text-align:center;">
-                <input type="submit" name="account" value="Reset Username/Password">
+                <input type="submit" name="account" value="Reset Password">
             </div>
             <br />
             <div>
