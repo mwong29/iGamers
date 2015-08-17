@@ -25,7 +25,7 @@
                 ArrayList<Product> games = dbUtil.getProductsByCategory("PS4");
         %>
         
-            <select name="game" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" style="width: 200px;">
                 <%
                     for (Product x : games)
                     {
@@ -40,7 +40,7 @@
             } else if (selected_console.equals("Xbox One")) {
                 ArrayList<Product> games = dbUtil.getProductsByCategory("XBOX ONE");
         %>
-            <select name="game" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" style="width: 200px;">
                 <%
                     for (Product x : games)
                     {
@@ -55,7 +55,7 @@
             } else if (selected_console.equals("Wii U")) {
                 ArrayList<Product> games = dbUtil.getProductsByCategory("Wii U");
         %>
-            <select name="game" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" style="width: 200px;">
                 <%
                     for (Product x : games)
                     {
@@ -70,7 +70,7 @@
             } else if (selected_console.equals("PC")) {
                 ArrayList<Product> games = dbUtil.getProductsByCategory("PC");
         %>
-            <select name="game" multiple="multiple" size="3" style="width: 200px;">
+            <select name="game" style="width: 200px;">
                 <%
                     for (Product x : games)
                     {
