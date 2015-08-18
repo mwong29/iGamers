@@ -92,7 +92,8 @@ public class DbUtil {
         }
         String preparedQuery = "UPDATE user_profile SET password=? WHERE username=?;";
         PreparedStatement ps1 = connection.prepareStatement(preparedQuery);
-        ps1.setString(2, newUser.getPassword());
+        ps1.setString(1, newUser.getPassword());
+        ps1.setString(2, oldUser.getUsername());
         ps1.executeUpdate();
         return true;
     }
