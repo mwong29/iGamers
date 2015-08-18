@@ -34,7 +34,11 @@ public class SignOutController extends HttpServlet
     {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        session.removeAttribute("user");
+        if (session != null) {
+            session.removeAttribute("user");
+            session.removeAttribute("prof");
+            session.invalidate();
+        }
         request.getRequestDispatcher("/").forward(request, response);
     }
 
