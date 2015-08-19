@@ -41,10 +41,6 @@ public final class Confirm
         String html = "";
         
         html += "<table cellspacing='5' cellpadding='5' border='1'>" +
-            "<tr>" + 
-              "<td align='right'><strong>Name:</strong></td>" + 
-              "<td>" + "Name" + "</td>" +
-            "</tr>" +
             "<tr>" +
               "<td align='right'><strong>Email:</strong></td>" +
               "<td>" + this.email + "</td>" +
